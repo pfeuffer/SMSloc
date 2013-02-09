@@ -21,4 +21,17 @@
         android:layout_marginTop="54dp"
         android:text="Button" />
 
+    <EditText
+        android:id="@+id/responseText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:text="WhereRU?" >
+
+        <requestFocus />
+    </EditText>
+
 </RelativeLayout>
