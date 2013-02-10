@@ -17,20 +17,11 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/retrieve_location_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/responseText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
-        android:text="Button" />
-
     <CheckBox
         android:id="@+id/activateCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/retrieve_location_button"
+        android:layout_below="@+id/responseText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:text="activate" />

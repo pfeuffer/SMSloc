@@ -9,7 +9,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -17,7 +16,6 @@ import android.widget.EditText;
 
 public class ListenActivity extends Activity {
 
-	private Button retrieveLocationButton;
 	private EditText responseText;
 	private CheckBox activateBox;
 
@@ -25,7 +23,6 @@ public class ListenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_listen);
-		retrieveLocationButton = (Button) findViewById(R.id.retrieve_location_button);
 		responseText = (EditText) findViewById(R.id.responseText);
 		responseText.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -50,11 +47,6 @@ public class ListenActivity extends Activity {
 			}
 		});
 		activateBox = (CheckBox) findViewById(R.id.activateCheckBox);
-		// retrieveLocationButton.setOnClickListener(new OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// }
-		// });
 		activateBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
