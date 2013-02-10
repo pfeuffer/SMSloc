@@ -54,9 +54,12 @@ public class SendService extends Service {
 
 					@Override
 					public void onLocationChanged(Location location) {
-						String text = (location != null) ? String.format(
-								"Latitude: %1$s ; Longitude: %2$s",
-								location.getLatitude(), location.getLongitude())
+						String text = (location != null) ? String
+								.format("Latitude: %1$s ; Longitude: %2$s ; Accuracy: %3s m ; Speed: %4s",
+										location.getLatitude(),
+										location.getLongitude(),
+										location.getAccuracy(),
+										location.getSpeed())
 								: "unknown";
 						sendSMS(receiver, text);
 					}
