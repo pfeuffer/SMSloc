@@ -4,23 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".ListenActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/retrieve_location_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="54dp"
-        android:text="Button" />
-
     <EditText
         android:id="@+id/responseText"
         android:layout_width="wrap_content"
@@ -33,5 +16,23 @@
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/retrieve_location_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/responseText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="Button" />
+
+    <CheckBox
+        android:id="@+id/activateCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/retrieve_location_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="activate" />
 
 </RelativeLayout>

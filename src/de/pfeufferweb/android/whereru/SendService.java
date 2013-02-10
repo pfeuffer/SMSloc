@@ -11,10 +11,12 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.telephony.SmsManager;
+import android.util.Log;
+import android.widget.Toast;
 
 public class SendService extends Service {
 	private LocationManager locationManager;
-	private final IBinder mBinder = new LocalBinder();
+	private final IBinder binder = new LocalBinder();
 
 	public class LocalBinder extends Binder {
 		SendService getService() {
@@ -24,7 +26,12 @@ public class SendService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		Log.d("SendService", "startet");
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Log.d("SendService",
+				"GPS enabled: "
+						+ locationManager
+								.isProviderEnabled(LocationManager.GPS_PROVIDER));
 		String receiver = intent.getExtras().getString("receiver");
 		getPosition(receiver);
 		return START_NOT_STICKY;
@@ -32,10 +39,15 @@ public class SendService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		return mBinder;
+		return binder;
 	}
 
 	private void getPosition(final String receiver) {
+		Log.d("SendService", "get position triggered");
+		Location lastKnownLocation = locationManager
+				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		Log.d("SendService", "last known position: "
+				+ format(lastKnownLocation));
 		locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
 				new LocationListener() {
 
@@ -54,13 +66,10 @@ public class SendService extends Service {
 
 					@Override
 					public void onLocationChanged(Location location) {
-						String text = (location != null) ? String
-								.format("Latitude: %1$s ; Longitude: %2$s ; Accuracy: %3s m ; Speed: %4s",
-										location.getLatitude(),
-										location.getLongitude(),
-										location.getAccuracy(),
-										location.getSpeed())
-								: "unknown";
+						Log.d("SendService", "location changed");
+						String text = format(location);
+						Toast.makeText(SendService.this, text,
+								Toast.LENGTH_LONG).show();
 						sendSMS(receiver, text);
 					}
 
@@ -73,5 +82,13 @@ public class SendService extends Service {
 								null);
 					}
 				}, null);
+	}
+
+	private String format(Location location) {
+		return (location != null) ? String
+				.format("Latitude: %1$s ; Longitude: %2$s ; Accuracy: %3s m ; Speed: %4s m/s",
+						location.getLatitude(), location.getLongitude(),
+						location.getAccuracy(), location.getSpeed())
+				: "unknown";
 	}
 }
