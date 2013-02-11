@@ -1,5 +1,7 @@
 package de.pfeufferweb.android.whereru;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -10,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -33,7 +36,8 @@ public class SendService extends Service {
 						+ locationManager
 								.isProviderEnabled(LocationManager.GPS_PROVIDER));
 		String receiver = intent.getExtras().getString("receiver");
-		getPosition(receiver);
+		int notificationId = intent.getExtras().getInt("notificationId");
+		getPosition(receiver, notificationId);
 		return START_NOT_STICKY;
 	}
 
@@ -42,7 +46,7 @@ public class SendService extends Service {
 		return binder;
 	}
 
-	private void getPosition(final String receiver) {
+	private void getPosition(final String receiver, final int notificationId) {
 		Log.d("SendService", "get position triggered");
 		Location lastKnownLocation = locationManager
 				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -70,16 +74,17 @@ public class SendService extends Service {
 						String text = format(location);
 						Toast.makeText(SendService.this, text,
 								Toast.LENGTH_LONG).show();
-						sendSMS(receiver, text);
+						sendSMS(text);
 					}
 
-					private void sendSMS(String phoneNumber, String message) {
+					private void sendSMS(String message) {
 						PendingIntent pi = PendingIntent
 								.getActivity(SendService.this, 0, new Intent(
 										SendService.this, SmsReceiver.class), 0);
 						SmsManager sms = SmsManager.getDefault();
-						sms.sendTextMessage(phoneNumber, null, message, pi,
-								null);
+						sms.sendTextMessage(receiver, null, message, pi, null);
+						updateNotification(SendService.this, receiver, message,
+								notificationId);
 					}
 				}, null);
 	}
@@ -90,5 +95,19 @@ public class SendService extends Service {
 						location.getLatitude(), location.getLongitude(),
 						location.getAccuracy(), location.getSpeed())
 				: "unknown";
+	}
+
+	private void updateNotification(Context context, String phoneNumber,
+			String message, int notificationId) {
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(
+				context);
+		builder.setContentTitle("request for position");
+		builder.setContentInfo("position sent to " + phoneNumber);
+		builder.setContentText(message);
+		builder.setSmallIcon(R.drawable.ic_launcher);
+		Notification notification = builder.build();
+		NotificationManager notificationManager = (NotificationManager) context
+				.getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.notify(notificationId, notification);
 	}
 }

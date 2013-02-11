@@ -20,6 +20,7 @@ public class ListenActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_listen);
 		responseText = (EditText) findViewById(R.id.responseText);
+		responseText.setText(Settings.getRequestText(this));
 		responseText.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
@@ -38,6 +39,7 @@ public class ListenActivity extends Activity {
 			}
 		});
 		activateBox = (CheckBox) findViewById(R.id.activateCheckBox);
+		activateBox.setChecked(Settings.getActive(this));
 		activateBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
