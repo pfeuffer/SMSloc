@@ -3,7 +3,6 @@ package de.pfeufferweb.android.whereru;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
@@ -12,10 +11,8 @@ import android.widget.Toast;
 public class SmsReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		SharedPreferences prefs = context.getSharedPreferences(
-				Settings.SETTINGS, Context.MODE_PRIVATE);
-		String requestText = prefs.getString(Settings.TRIGGER_TEXT, "WhereRU?");
-		boolean active = prefs.getBoolean(Settings.ACTIVE, false);
+		String requestText = Settings.getRequestText(context);
+		boolean active = Settings.getActive(context);
 
 		Log.d("SmsReceiver", "request text: " + requestText + "; active: "
 				+ active);
@@ -26,7 +23,7 @@ public class SmsReceiver extends BroadcastReceiver {
 			for (int i = 0; i < pdus.length; i++) {
 				SmsMessage msg = SmsMessage.createFromPdu((byte[]) pdus[i]);
 				String origin = msg.getOriginatingAddress();
-				String message = msg.getMessageBody().toString();
+				String message = msg.getMessageBody().toString().trim();
 				if (message.equals(requestText)) {
 					Toast.makeText(context,
 							"trying to send position to " + origin,

@@ -1,13 +1,9 @@
 package de.pfeufferweb.android.whereru;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -28,13 +24,8 @@ public class ListenActivity extends Activity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				SharedPreferences prefs = getSharedPreferences("Settings",
-						Context.MODE_PRIVATE);
-				String newSmsText = responseText.getText().toString();
-				Log.d("ListenActivity", newSmsText);
-				Editor editor = prefs.edit();
-				editor.putString(Settings.TRIGGER_TEXT, newSmsText);
-				editor.commit();
+				String newRequestText = responseText.getText().toString();
+				Settings.setRequestText(ListenActivity.this, newRequestText);
 			}
 
 			@Override
@@ -51,13 +42,7 @@ public class ListenActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				SharedPreferences prefs = getSharedPreferences(
-						Settings.SETTINGS, Context.MODE_PRIVATE);
-				String newSmsText = responseText.getText().toString();
-				Log.d("ListenActivity", newSmsText);
-				Editor editor = prefs.edit();
-				editor.putBoolean(Settings.ACTIVE, isChecked);
-				editor.commit();
+				Settings.setActive(ListenActivity.this, isChecked);
 			}
 		});
 	}
