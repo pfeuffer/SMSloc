@@ -7,10 +7,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Binder;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
@@ -47,51 +45,26 @@ public class SendService extends Service {
 	}
 
 	private void getPosition(final String receiver, final int notificationId) {
-		Log.d("SendService", "get position triggered");
-		Location lastKnownLocation = locationManager
-				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		Log.d("SendService", "last known position: "
-				+ format(lastKnownLocation));
-		locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
-				new LocationListener() {
+		Location location = new TimedLocationProvider(this, 20000, 20)
+				.getBestLocation();
+		String text = format(location);
+		Log.d("SendService", "text: " + text);
+		Toast.makeText(SendService.this, text, Toast.LENGTH_LONG).show();
+		sendSMS(text, receiver, notificationId);
+	}
 
-					@Override
-					public void onStatusChanged(String provider, int status,
-							Bundle extras) {
-					}
-
-					@Override
-					public void onProviderEnabled(String provider) {
-					}
-
-					@Override
-					public void onProviderDisabled(String provider) {
-					}
-
-					@Override
-					public void onLocationChanged(Location location) {
-						Log.d("SendService", "location changed");
-						String text = format(location);
-						Toast.makeText(SendService.this, text,
-								Toast.LENGTH_LONG).show();
-						sendSMS(text);
-					}
-
-					private void sendSMS(String message) {
-						PendingIntent pi = PendingIntent
-								.getActivity(SendService.this, 0, new Intent(
-										SendService.this, SmsReceiver.class), 0);
-						SmsManager sms = SmsManager.getDefault();
-						sms.sendTextMessage(receiver, null, message, pi, null);
-						updateNotification(SendService.this, receiver, message,
-								notificationId);
-					}
-				}, null);
+	private void sendSMS(String message, final String receiver,
+			final int notificationId) {
+		PendingIntent pi = PendingIntent.getActivity(SendService.this, 0,
+				new Intent(SendService.this, SmsReceiver.class), 0);
+		SmsManager sms = SmsManager.getDefault();
+		sms.sendTextMessage(receiver, null, message, pi, null);
+		updateNotification(SendService.this, receiver, message, notificationId);
 	}
 
 	private String format(Location location) {
 		return (location != null) ? String
-				.format("Latitude: %1$s ; Longitude: %2$s ; Accuracy: %3s m ; Speed: %4s m/s",
+				.format("Latitude: %1$s ; Longitude: %2$s ; Accuracy: %3$s m ; Speed: %4$s m/s",
 						location.getLatitude(), location.getLongitude(),
 						location.getAccuracy(), location.getSpeed())
 				: "unknown";
@@ -99,13 +72,14 @@ public class SendService extends Service {
 
 	private void updateNotification(Context context, String phoneNumber,
 			String message, int notificationId) {
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(
-				context);
-		builder.setContentTitle("request for position");
-		builder.setContentInfo("position sent to " + phoneNumber);
-		builder.setContentText(message);
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		Notification notification = builder.build();
+		Notification notification = new NotificationCompat.Builder(context)
+				.setContentTitle("request for position")
+				.setContentInfo("position sent to " + phoneNumber)
+				.setContentText(message)
+				.setSmallIcon(R.drawable.ic_launcher)
+				.setContentIntent(
+						PendingIntent.getActivity(context, 0, new Intent(
+								Intent.ACTION_VIEW), 0)).build();
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.notify(notificationId, notification);

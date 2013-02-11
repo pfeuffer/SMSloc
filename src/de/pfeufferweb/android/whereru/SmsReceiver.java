@@ -2,6 +2,7 @@ package de.pfeufferweb.android.whereru;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -44,12 +45,13 @@ public class SmsReceiver extends BroadcastReceiver {
 	}
 
 	private int setNotification(Context context, String origin) {
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(
-				context);
-		builder.setContentTitle("request for position");
-		builder.setContentInfo("sending position to " + origin);
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		Notification notification = builder.build();
+		Notification notification = new NotificationCompat.Builder(context)
+				.setContentTitle("request for position")
+				.setContentInfo("sending position to " + origin)
+				.setSmallIcon(R.drawable.ic_launcher)
+				.setContentIntent(
+						PendingIntent.getActivity(context, 0, new Intent(
+								Intent.ACTION_VIEW), 0)).build();
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		int notificationId = ++notificationCounter;
