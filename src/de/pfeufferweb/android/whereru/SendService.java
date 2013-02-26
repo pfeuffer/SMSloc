@@ -64,11 +64,9 @@ public class SendService extends Service {
 
 	private String format(Location location) {
 		return (location != null) ? String
-				.format("Latitude: %1$s ; Longitude: %2$s ; Accuracy: %3$s m ; Speed: %4$s m/s ; Age: %5$s s",
-						location.getLatitude(),
-						location.getLongitude(),
-						location.getAccuracy(),
-						location.getSpeed(),
+				.format("http://maps.google.de/maps?q=%1$s,%2$s ; Accuracy: %3$s m ; Speed: %4$s m/s ; Age: %5$s s",
+						location.getLatitude(), location.getLongitude(),
+						location.getAccuracy(), location.getSpeed(),
 						getAge(location))
 				: "unknown";
 	}
