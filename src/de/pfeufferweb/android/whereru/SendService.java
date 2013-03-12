@@ -33,8 +33,8 @@ public class SendService extends Service {
 				"GPS enabled: "
 						+ locationManager
 								.isProviderEnabled(LocationManager.GPS_PROVIDER));
-		String receiver = intent.getExtras().getString("receiver");
-		int notificationId = intent.getExtras().getInt("notificationId");
+		final String receiver = intent.getExtras().getString("receiver");
+		final int notificationId = intent.getExtras().getInt("notificationId");
 		getPosition(receiver, notificationId);
 		return START_NOT_STICKY;
 	}
@@ -45,8 +45,15 @@ public class SendService extends Service {
 	}
 
 	private void getPosition(final String receiver, final int notificationId) {
-		Location location = new TimedLocationProvider(this, 20000, 20)
-				.getBestLocation();
+		// try {
+		TimedLocationProvider provider = new TimedLocationProvider(this);
+		provider.start();
+		try {
+			provider.join();
+		} catch (InterruptedException e) {
+			Log.e("SendService", "join failed", e);
+		}
+		Location location = provider.getBestLocation();
 		String text = format(location);
 		Log.d("SendService", "text: " + text);
 		Toast.makeText(SendService.this, text, Toast.LENGTH_LONG).show();
