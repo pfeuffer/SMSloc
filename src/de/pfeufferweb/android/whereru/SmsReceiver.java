@@ -33,7 +33,7 @@ public class SmsReceiver extends BroadcastReceiver {
 				if (message.equals(requestText)) {
 					int notificationId = setNotification(context, origin);
 					Toast.makeText(context,
-							"trying to send position to " + origin,
+							context.getString(R.string.toastRequest, origin),
 							Toast.LENGTH_LONG).show();
 					Intent startService = new Intent(context, SendService.class);
 					startService.putExtra("receiver", origin);
@@ -46,8 +46,9 @@ public class SmsReceiver extends BroadcastReceiver {
 
 	private int setNotification(Context context, String origin) {
 		Notification notification = new NotificationCompat.Builder(context)
-				.setContentTitle("request for position")
-				.setContentInfo("request by " + origin)
+				.setContentTitle(context.getString(R.string.notificationTitle))
+				.setContentInfo(
+						context.getString(R.string.notificationRequest, origin))
 				.setSmallIcon(R.drawable.ic_launcher)
 				.setContentIntent(
 						PendingIntent.getActivity(context, 0, new Intent(

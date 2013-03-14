@@ -38,12 +38,10 @@ public class LocationSender {
 	}
 
 	private String format(Location location) {
-		return (location != null) ? String
-				.format("http://maps.google.de/maps?q=%1$s,%2$s ; Accuracy: %3$s m ; Speed: %4$s m/s ; Age: %5$s s",
-						location.getLatitude(), location.getLongitude(),
-						location.getAccuracy(), location.getSpeed(),
-						getAge(location))
-				: "unknown";
+		return (location != null) ? context.getString(
+				R.string.locationResponse, location.getLatitude(),
+				location.getLongitude(), location.getAccuracy(),
+				location.getSpeed(), getAge(location)) : "unknown";
 	}
 
 	private long getAge(Location location) {
@@ -53,8 +51,10 @@ public class LocationSender {
 	private void updateNotification(Context context, String phoneNumber,
 			String message, int notificationId) {
 		Notification notification = new NotificationCompat.Builder(context)
-				.setContentTitle("request for position")
-				.setContentText("position sent to " + phoneNumber)
+				.setContentTitle(context.getString(R.string.notificationTitle))
+				.setContentText(
+						context.getString(R.string.notificationSent,
+								phoneNumber))
 				.setSmallIcon(R.drawable.ic_launcher)
 				.setContentIntent(
 						PendingIntent.getActivity(context, 0, new Intent(

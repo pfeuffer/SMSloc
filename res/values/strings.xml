@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">WhereRU</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
+    <string name="app_name">WhereRU?</string>
+    <string name="active">active</string>
+    <string name="defaultText">WhereRU?</string>
+    <string name="textDescription">Enter the text, to which a response should be triggered:</string>
+    <string name="activateDescription">Select this, to activate automatic responses:</string>
+    <string name="notificationTitle">request for location</string>
+    <string name="notificationSent">location sent to %1$s</string>
+    <string name="notificationRequest">location request from %1$s</string>
+    <string name="locationResponse">http://maps.google.de/maps?q=%1$s,%2$s ; Accuracy: %3$s m ; Speed: %4$s m/s ; Age: %5$s s</string>
+    <string name="locationUnknown">Unable to determine location.</string>
+    <string name="toastRequest">trying to send location to %1$s</string>
 
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WhereRU?</string>
+    <string name="active">Aktiv</string>
+    <string name="defaultText">WhereRU?</string>
+    <string name="textDescription">Geben Sie den Text ein, bei dem eine Antwort gesendet werden soll:</string>
+    <string name="activateDescription">Aktivieren, um automatisiert Antworten zu senden:</string>
+    <string name="notificationTitle">Positionsanfrage erhalten</string>
+    <string name="notificationSent">Position an %1$s gesendet</string>
+    <string name="notificationRequest">Positionsanfrage von %1$s</string>
+    <string name="locationResponse">http://maps.google.de/maps?q=%1$s,%2$s ; Genauigkeit: %3$s m ; Geschwindigket: %4$s m/s ; Alter: %5$s s</string>
+    <string name="locationUnknown">Position konnte nicht ermittelt werden.</string>
+    <string name="toastRequest">Versuche, Position an %1$s zu senden</string>
+
+</resources>
