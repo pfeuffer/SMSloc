@@ -41,7 +41,8 @@ public class LocationSender {
 		return (location != null) ? context.getString(
 				R.string.locationResponse, location.getLatitude(),
 				location.getLongitude(), location.getAccuracy(),
-				location.getSpeed(), getAge(location)) : "unknown";
+				location.getSpeed(), getAge(location)) : context
+				.getString(R.string.locationUnknown);
 	}
 
 	private long getAge(Location location) {
