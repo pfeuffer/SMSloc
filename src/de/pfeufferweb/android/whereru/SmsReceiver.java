@@ -47,7 +47,7 @@ public class SmsReceiver extends BroadcastReceiver {
 	private int setNotification(Context context, String origin) {
 		Notification notification = new NotificationCompat.Builder(context)
 				.setContentTitle("request for position")
-				.setContentInfo("sending position to " + origin)
+				.setContentInfo("request by " + origin)
 				.setSmallIcon(R.drawable.ic_launcher)
 				.setContentIntent(
 						PendingIntent.getActivity(context, 0, new Intent(
