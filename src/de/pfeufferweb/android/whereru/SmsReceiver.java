@@ -19,6 +19,7 @@ public class SmsReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		String requestText = Settings.getRequestText(context);
 		boolean active = Settings.getActive(context);
+		int seconds = Settings.getSeconds(context);
 
 		Log.d("SmsReceiver", "request text: " + requestText + "; active: "
 				+ active);
@@ -38,6 +39,7 @@ public class SmsReceiver extends BroadcastReceiver {
 					Intent startService = new Intent(context, SendService.class);
 					startService.putExtra("receiver", origin);
 					startService.putExtra("notificationId", notificationId);
+					startService.putExtra("seconds", seconds);
 					context.startService(startService);
 				}
 			}

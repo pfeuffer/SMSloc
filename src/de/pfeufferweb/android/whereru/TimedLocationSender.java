@@ -17,15 +17,17 @@ public class TimedLocationSender extends Thread {
 	private final LocationManager locationManager;
 	private final Context context;
 	private final String receiver;
+	private final int seconds;
 	private final int notificationId;
 
 	private long startTime;
 	private Location lastLocation;
 
-	public TimedLocationSender(Context context, String receiver,
+	public TimedLocationSender(Context context, String receiver, int seconds,
 			int notificationId) {
 		this.context = context;
 		this.receiver = receiver;
+		this.seconds = seconds;
 		this.notificationId = notificationId;
 		this.locationManager = (LocationManager) context
 				.getSystemService(Context.LOCATION_SERVICE);
@@ -52,7 +54,7 @@ public class TimedLocationSender extends Thread {
 	}
 
 	private boolean inTime() {
-		boolean inTime = (System.currentTimeMillis() - startTime) < MAX_WAIT_TIME;
+		boolean inTime = (System.currentTimeMillis() - startTime) < seconds;
 		Log.d("TimedLocationProvider", "in time: " + inTime);
 		return inTime;
 	}

@@ -4,34 +4,34 @@
     android:layout_height="match_parent"
     tools:context=".ListenActivity" >
 
+    <Button
+        android:id="@+id/helpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_marginBottom="26dp"
+        android:text="@string/helpButton"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_marginTop="24dp"
+        android:text="@string/textIntro" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/responseText"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/responseText"
-        android:layout_marginTop="20dp"
-        android:text="@string/textDescription" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/responseText"
-        android:layout_alignRight="@+id/responseText"
-        android:layout_below="@+id/responseText"
-        android:layout_marginTop="43dp"
-        android:text="@string/activateDescription" />
-
-    <CheckBox
-        android:id="@+id/activateCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="14dp"
-        android:text="@string/active" />
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="19dp"
+        android:text="@string/textDescription" />
 
     <EditText
         android:id="@+id/responseText"
@@ -39,11 +39,47 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="17dp"
         android:ems="10"
+        android:inputType="text"
         android:text="@string/defaultText" >
 
         <requestFocus />
     </EditText>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/responseText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/activateDescription" />
+
+    <ToggleButton
+        android:id="@+id/activateToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="@string/toggleButton" />
+
+    <NumberPicker
+        android:id="@+id/numberPicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/helpButton"
+        android:layout_alignRight="@+id/helpButton" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/numberPicker1"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignTop="@+id/numberPicker1"
+        android:layout_toLeftOf="@+id/numberPicker1"
+        android:text="@string/timeText" />
 
 </RelativeLayout>

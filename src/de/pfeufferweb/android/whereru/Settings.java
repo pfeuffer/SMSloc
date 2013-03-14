@@ -8,32 +8,48 @@ public class Settings {
 	static final String SETTINGS = "Settings";
 	static final String ACTIVE = "active";
 	static final String TRIGGER_TEXT = "trigger";
+	static final String SECONDS = "seconds";
 
 	public static void setActive(Context context, boolean active) {
-		SharedPreferences prefs = context.getSharedPreferences(
-				Settings.SETTINGS, Context.MODE_PRIVATE);
-		Editor editor = prefs.edit();
-		editor.putBoolean(Settings.ACTIVE, active);
+		Editor editor = getEditor(context);
+		editor.putBoolean(ACTIVE, active);
 		editor.commit();
 	}
 
 	public static void setRequestText(Context context, String text) {
-		SharedPreferences prefs = context.getSharedPreferences("Settings",
-				Context.MODE_PRIVATE);
-		Editor editor = prefs.edit();
-		editor.putString(Settings.TRIGGER_TEXT, text);
+		Editor editor = getEditor(context);
+		editor.putString(TRIGGER_TEXT, text);
+		editor.commit();
+	}
+
+	public static void setSeconds(Context context, int seconds) {
+		Editor editor = getEditor(context);
+		editor.putInt(SECONDS, seconds);
 		editor.commit();
 	}
 
 	public static boolean getActive(Context context) {
-		SharedPreferences prefs = context.getSharedPreferences(
-				Settings.SETTINGS, Context.MODE_PRIVATE);
-		return prefs.getBoolean(Settings.ACTIVE, false);
+		SharedPreferences prefs = getPrefs(context);
+		return prefs.getBoolean(ACTIVE, false);
 	}
 
 	public static String getRequestText(Context context) {
-		SharedPreferences prefs = context.getSharedPreferences(
-				Settings.SETTINGS, Context.MODE_PRIVATE);
-		return prefs.getString(Settings.TRIGGER_TEXT, "WhereRU?");
+		SharedPreferences prefs = getPrefs(context);
+		return prefs.getString(TRIGGER_TEXT, "WhereRU?");
+	}
+
+	public static int getSeconds(Context context) {
+		SharedPreferences prefs = getPrefs(context);
+		return prefs.getInt(SECONDS, 60);
+	}
+
+	private static Editor getEditor(Context context) {
+		SharedPreferences prefs = getPrefs(context);
+		Editor editor = prefs.edit();
+		return editor;
+	}
+
+	private static SharedPreferences getPrefs(Context context) {
+		return context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
 	}
 }

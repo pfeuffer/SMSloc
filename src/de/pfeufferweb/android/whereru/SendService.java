@@ -20,7 +20,8 @@ public class SendService extends Service {
 		Log.d("SendService", "startet");
 		final String receiver = intent.getExtras().getString("receiver");
 		final int notificationId = intent.getExtras().getInt("notificationId");
-		getPosition(receiver, notificationId);
+		final int seconds = intent.getExtras().getInt("seconds");
+		getPosition(receiver, seconds, notificationId);
 		return START_NOT_STICKY;
 	}
 
@@ -29,7 +30,9 @@ public class SendService extends Service {
 		return binder;
 	}
 
-	private void getPosition(final String receiver, final int notificationId) {
-		new TimedLocationSender(this, receiver, notificationId).start();
+	private void getPosition(final String receiver, final int seconds,
+			int notificationId) {
+		new TimedLocationSender(this, receiver, seconds, notificationId)
+				.start();
 	}
 }
