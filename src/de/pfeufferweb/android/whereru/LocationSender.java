@@ -1,12 +1,9 @@
 package de.pfeufferweb.android.whereru;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
 
@@ -34,7 +31,8 @@ public class LocationSender {
 				context, SmsReceiver.class), 0);
 		SmsManager sms = SmsManager.getDefault();
 		sms.sendTextMessage(receiver, null, message, pi, null);
-		updateNotification(context, receiver, message, notificationId);
+		new Notifications().updateNotification(context, receiver, message,
+				notificationId);
 	}
 
 	private String format(Location location) {
@@ -49,19 +47,4 @@ public class LocationSender {
 		return (System.currentTimeMillis() - location.getTime()) / 1000;
 	}
 
-	private void updateNotification(Context context, String phoneNumber,
-			String message, int notificationId) {
-		Notification notification = new NotificationCompat.Builder(context)
-				.setContentTitle(context.getString(R.string.notificationTitle))
-				.setContentText(
-						context.getString(R.string.notificationSent,
-								phoneNumber))
-				.setSmallIcon(R.drawable.ic_launcher)
-				.setContentIntent(
-						PendingIntent.getActivity(context, 0, new Intent(
-								Intent.ACTION_VIEW), 0)).build();
-		NotificationManager notificationManager = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.notify(notificationId, notification);
-	}
 }
