@@ -9,12 +9,14 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.NumberPicker.OnValueChangeListener;
+import android.widget.Spinner;
 import android.widget.ToggleButton;
 
 public class ListenActivity extends Activity {
@@ -22,7 +24,7 @@ public class ListenActivity extends Activity {
 	private EditText responseText;
 	private ToggleButton toggleButton;
 	private Button helpButton;
-	private NumberPicker seconds;
+	private Spinner seconds;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +69,23 @@ public class ListenActivity extends Activity {
 			}
 		});
 
-		seconds = (NumberPicker) findViewById(R.id.numberPicker1);
-		seconds.setValue(Settings.getSeconds(this));
-		seconds.setMinValue(15);
-		seconds.setMaxValue(600);
-		seconds.setOnValueChangedListener(new OnValueChangeListener() {
+		seconds = (Spinner) findViewById(R.id.timeSpinner);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+				this, R.array.times, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		seconds.setAdapter(adapter);
+		seconds.setSelection(Math.min(Settings.getSeconds(this),
+				Times.values().length - 1));
+		seconds.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
-			public void onValueChange(NumberPicker picker, int oldVal,
-					int newVal) {
-				int newSeconds = seconds.getValue();
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				int newSeconds = seconds.getSelectedItemPosition();
 				Settings.setSeconds(ListenActivity.this, newSeconds);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
 			}
 		});
 	}

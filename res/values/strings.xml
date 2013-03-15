@@ -18,5 +18,13 @@
     <string name="timeText">How many seconds should I try, to determine the actual gps location before sending back a response?</string>
     <string name="helpButton">help</string>
     <string name="helpUrl">http://www.pfeuffer-web.de/WhereRU/help-en</string>
-
+    <string-array name="times">
+        <item>15 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>2 mintues</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>infinite</item>
+    </string-array>
 </resources>

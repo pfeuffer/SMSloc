@@ -20,7 +20,7 @@ public class SendService extends Service {
 		Log.d("SendService", "startet");
 		final String receiver = intent.getExtras().getString("receiver");
 		final int notificationId = intent.getExtras().getInt("notificationId");
-		final int seconds = intent.getExtras().getInt("seconds");
+		final int seconds = Times.values()[intent.getExtras().getInt("seconds")].seconds;
 		getPosition(receiver, seconds, notificationId);
 		return START_NOT_STICKY;
 	}

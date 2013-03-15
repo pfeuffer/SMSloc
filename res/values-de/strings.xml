@@ -19,5 +19,13 @@
     <string name="timeText">Wieviele Sekunden soll maximal versucht werden, bei einer Anfrage die GPS-Position zu ermitteln, bevor eine Antwort geschickt wird?</string>
     <string name="helpButton">Hilfe</string>
     <string name="helpUrl">http://www.pfeuffer-web.de/WhereRU/help-de</string>
-
+    <string-array name="times">
+        <item>15 Sekunden</item>
+        <item>30 Sekunden</item>
+        <item>1 Minute</item>
+        <item>2 Minuten</item>
+        <item>5 Minuten</item>
+        <item>10 Minuten</item>
+        <item>Unendlich</item>
+    </string-array>
 </resources>
