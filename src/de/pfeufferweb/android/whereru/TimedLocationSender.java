@@ -12,7 +12,6 @@ public class TimedLocationSender extends Thread {
 
 	private static final float ACCEPTED_ACCURACY = 30f;
 	private static final int WAIT_TIME = 1000;
-	private static final int MAX_WAIT_TIME = 20000;
 
 	private final LocationManager locationManager;
 	private final Context context;
@@ -54,7 +53,7 @@ public class TimedLocationSender extends Thread {
 	}
 
 	private boolean inTime() {
-		boolean inTime = (System.currentTimeMillis() - startTime) < seconds;
+		boolean inTime = (System.currentTimeMillis() - startTime) < seconds * 1000;
 		Log.d("TimedLocationProvider", "in time: " + inTime);
 		return inTime;
 	}
