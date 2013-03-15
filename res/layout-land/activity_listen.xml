@@ -54,7 +54,6 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="@string/textIntro" />
 
@@ -70,8 +69,9 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/helpButton"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/responseText"
         android:text="@string/textDescription" />
 
 </RelativeLayout>
