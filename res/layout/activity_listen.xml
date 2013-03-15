@@ -29,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
+        android:layout_alignRight="@+id/textView2"
         android:layout_below="@+id/textView3"
         android:layout_marginTop="19dp"
         android:text="@string/textDescription" />
@@ -65,21 +66,21 @@
         android:layout_marginTop="14dp"
         android:text="@string/toggleButton" />
 
-    <Spinner
-        android:id="@+id/timeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/helpButton"
-        android:layout_alignLeft="@+id/responseText"
-        android:layout_alignRight="@+id/responseText" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/timeSpinner"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignRight="@+id/helpButton"
+        android:layout_below="@+id/activateToggleButton"
+        android:layout_marginTop="18dp"
         android:text="@string/timeText" />
+
+    <Spinner
+        android:id="@+id/timeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/responseText"
+        android:layout_below="@+id/textView4" />
 
 </RelativeLayout>
