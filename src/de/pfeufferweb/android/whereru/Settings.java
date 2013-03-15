@@ -40,7 +40,7 @@ public class Settings {
 
 	public static int getSeconds(Context context) {
 		SharedPreferences prefs = getPrefs(context);
-		return prefs.getInt(SECONDS, 60);
+		return prefs.getInt(SECONDS, 3);
 	}
 
 	private static Editor getEditor(Context context) {
