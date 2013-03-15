@@ -4,9 +4,10 @@
     <string name="app_name">WhereRU?</string>
     <string name="active">active</string>
     <string name="defaultText">WhereRU?</string>
-    <string name="textIntro">If activated, this app will respond to SMS messages with a given text by sending
+    <string name="textIntro">This app can respond to SMS messages with a given text by sending
         the actual gps location back to the sender.</string>
     <string name="textDescription">Enter the text, to which a response should be triggered:</string>
+    <string name="textDescriptionShort">Respond to:</string>
     <string name="activateDescription">Select this, to activate automatic responses:</string>
     <string name="notificationTitle">request for location</string>
     <string name="notificationSent">location sent to %1$s</string>
@@ -15,7 +16,7 @@
     <string name="locationUnknown">Unable to determine location.</string>
     <string name="toastRequest">trying to send location to %1$s</string>
     <string name="toggleButton">active</string>
-    <string name="timeText">How many seconds should I try, to determine the actual gps location before sending back a response?</string>
+    <string name="timeText">How long should I try, to determine the actual gps location before sending back a response?</string>
     <string name="helpButton">help</string>
     <string name="helpUrl">http://www.pfeuffer-web.de/WhereRU/help-en</string>
     <string-array name="times">

@@ -4,11 +4,14 @@
     <string name="app_name">WhereRU?</string>
     <string name="active">Aktiv</string>
     <string name="defaultText">WhereRU?</string>
-    <string name="textIntro">Ist diese Anwendung aktiviert, wird beim Eingang einer SMS mit einem bestimmten Text eine
-        Antwort mit der aktuellen Position erzeugt und an den Sender der SMS zurück geschickt. Auf welchen Text reagiert
+    <string name="textIntro">Diese Anwendung kann beim Eingang einer SMS die aktuelle Position
+        an den Sender als SMS zurück schicken. Auf welchen Text reagiert
         wird, können Sie unten angeben.</string>
-    <string name="textDescription">Geben Sie den Text ein, bei dem eine Antwort gesendet werden soll:</string>
+    <string name="textDescription">Auf diesen Text hin soll eine Antwort gesendet werden:</string>
+    <string name="textDescriptionShort">Antworten auf:</string>
     <string name="activateDescription">Aktivieren, um automatisiert Antworten zu senden:</string>
+    <string name="timeText">Wie lange soll maximal versucht werden, bei einer Anfrage die GPS-Position
+        zu ermitteln, bevor eine Antwort geschickt wird?</string>
     <string name="notificationTitle">Positionsanfrage erhalten</string>
     <string name="notificationSent">Position an %1$s gesendet</string>
     <string name="notificationRequest">Positionsanfrage von %1$s</string>
@@ -16,7 +19,6 @@
     <string name="locationUnknown">Position konnte nicht ermittelt werden.</string>
     <string name="toastRequest">Versuche, Position an %1$s zu senden</string>
     <string name="toggleButton">Aktivieren</string>
-    <string name="timeText">Wieviele Sekunden soll maximal versucht werden, bei einer Anfrage die GPS-Position zu ermitteln, bevor eine Antwort geschickt wird?</string>
     <string name="helpButton">Hilfe</string>
     <string name="helpUrl">http://www.pfeuffer-web.de/WhereRU/help-de</string>
     <string-array name="times">
