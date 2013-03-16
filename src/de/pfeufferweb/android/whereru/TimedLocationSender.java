@@ -48,8 +48,10 @@ public class TimedLocationSender extends Thread {
 		} finally {
 			updateThread.close();
 		}
-		new LocationSender(context, receiver, notificationId)
-				.send(lastLocation);
+		if (Settings.getActive(context)) {
+			new LocationSender(context, receiver, notificationId)
+					.send(lastLocation);
+		}
 	}
 
 	private boolean inTime() {
