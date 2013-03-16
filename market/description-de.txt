@@ -1,0 +1,19 @@
+Geräte per SMS finden, ohne Registrierung, Datenverbindung und Akkuverbrauch
+
+Mithilfe dieser kleinen App können Sie Telefone lokalisieren, um z. B. ihre Familienangehörigen zu finden.
+
+Dieses geschieht mithilfe von SMS-Nachrichten. Das Gerät, auf dem diese App installiert ist, kann auf eine SMS hin eine Antwort erzeugen, in der die aktuelle GPS-Position angegeben ist. Auf welchen Text die App reagiert, können Sie selber einstellen. Die Kommunikation findet ausschließlich per SMS statt, es werden keine Datenverbindungen aufgebaut.
+
+Bei Erhalt einer entsprechenden SMS versucht die App, die aktuelle Position per GPS zu ermitteln. Wie lange sie dieses versucht, können Sie selber einstellen. Da das GPS erst zu diesem Zeitpunkt aktiviert wird, verbraucht diese App ansonsten keinen Strom. Konnte die Position ermittelt werden, wird als Antwort eine SMS mit einem Google-Maps-Link zurück geschickt (ein Beispiel ist in den Bildschirmfotos zu sehen).
+
+Bitte ändern Sie bei der ersten Verwendung den Text, auf den die App reagieren soll.
+
+ACHTUNG: Diese App kommuniziert per SMS. Dieses erzeugt bei ihrem Provider entsprechende Kosten, für die Sie selber verantwortlich sind! Es muss sowohl der "Fragende" als auch der "Antwortende" eine SMS verschicken und entsprechend bezahlen. Deaktivieren Sie die App, wenn Sie sie aktuell nicht benötigen (Schalter in der App auf "Aus" schalten)!
+
+Prüfen Sie vor der Verwendung, wie viel Sie für das Versenden von SMS-Nachrichten bei ihrem Provider zahlen müssen. Pro Positionsabfrage sind zwei SMS-Nachrichten zu verschicken. Diese App benötigt jedoch keine Datenverbindungen, so dass sie z. B. auch mit Prepaid-Tarifen ohne Datenvolumen genutzt werden kann. Ein weiterer Vorteil ist, dass die Anfrage von jedem beliebigen Handy aus geschickt werden kann. Der Sender benötigt diese App nicht.
+
+Diese App wird ohne Garantie angeboten!
+
+Sie dürfen diese App nicht dazu nutzen, andere Personen ohne deren Kenntnis zu lokalisieren!
+
+Wenn Sie Fragen oder Anregungen haben oder Fehler feststellen, senden Sie mir eine Nachricht an android@pfeuffer-web.de.
