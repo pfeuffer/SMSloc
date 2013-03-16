@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">WhereRU?</string>
+    <string name="app_name">SMS loc</string>
     <string name="active">Aktiv</string>
-    <string name="defaultText">WhereRU?</string>
+    <string name="defaultText">SMS loc</string>
     <string name="textIntro">Diese Anwendung kann beim Eingang einer SMS die aktuelle Position
         an den Sender als SMS zurück schicken. Auf welchen Text reagiert
         wird, können Sie unten angeben.</string>
@@ -20,7 +20,7 @@
     <string name="toastRequest">Versuche, Position an %1$s zu senden</string>
     <string name="toggleButton">Aktivieren</string>
     <string name="helpButton">Hilfe</string>
-    <string name="helpUrl">http://www.pfeuffer-web.de/WhereRU/help-de</string>
+    <string name="helpUrl">http://www.pfeuffer-web.de/SMSloc/help-de</string>
     <string-array name="times">
         <item>15 Sekunden</item>
         <item>30 Sekunden</item>
