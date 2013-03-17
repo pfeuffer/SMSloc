@@ -51,7 +51,7 @@
         android:layout_alignRight="@+id/helpButton"
         android:layout_below="@+id/activateToggleButton"
         android:layout_marginTop="18dp"
-        android:text="@string/timeText" />
+        android:text="@string/timeDescription" />
 
     <Spinner
         android:id="@+id/timeSpinner"

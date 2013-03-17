@@ -2,6 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
         android:key="trigger"
-        android:title="@string/textDescription"
+        android:title="@string/textTitle"
+        android:summary="@string/textDescription"
         android:defaultValue="WhereRU?" />
+    <ListPreference
+        android:key="times"
+        android:title="@string/timeTitle"
+        android:summary="@string/timeDescription"
+        android:entries="@array/times"
+        android:entryValues="@array/timeValues" />
 </PreferenceScreen>

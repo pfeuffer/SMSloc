@@ -3,9 +3,9 @@ package de.pfeufferweb.android.whereru;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 
 public class Settings {
-	static final String SETTINGS = "Settings";
 	static final String ACTIVE = "active";
 	static final String TRIGGER_TEXT = "trigger";
 	static final String SECONDS = "seconds";
@@ -50,6 +50,6 @@ public class Settings {
 	}
 
 	private static SharedPreferences getPrefs(Context context) {
-		return context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		return PreferenceManager.getDefaultSharedPreferences(context);
 	}
 }

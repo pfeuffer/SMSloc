@@ -4,8 +4,8 @@
     <string name="app_name">SMS loc</string>
     <string name="active">active</string>
     <string name="defaultText">SMS loc</string>
-    <string name="textIntro">This app can respond to SMS messages with a given text by sending
-        the actual gps location back to the sender.</string>
+    <string name="textIntro">This app can respond to SMS messages with a given text by sending the actual gps location back to the sender.</string>
+    <string name="textTitle">Trigger text</string>
     <string name="textDescription">Enter the text, to which a response should be triggered:</string>
     <string name="textDescriptionShort">Respond to:</string>
     <string name="activateDescription">Select this, to activate automatic responses:</string>
@@ -16,7 +16,8 @@
     <string name="locationUnknown">Unable to determine location.</string>
     <string name="toastRequest">trying to send location to %1$s</string>
     <string name="toggleButton">active</string>
-    <string name="timeText">How long should I try, to determine the actual gps location before sending back a response?</string>
+    <string name="timeTitle">Time to gps fix</string>
+    <string name="timeDescription">How long should I try, to determine the actual gps location before sending back a response?</string>
     <string name="helpButton">help</string>
     <string name="helpUrl">http://www.pfeuffer-web.de/SMSloc/help-en</string>
     <string-array name="times">
@@ -28,4 +29,14 @@
         <item>10 minutes</item>
         <item>infinite</item>
     </string-array>
+    <string-array name="timeValues">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+        <item>600</item>
+        <item>999999</item>
+    </string-array>
+    <string name="preferences">Preferences</string>
 </resources>

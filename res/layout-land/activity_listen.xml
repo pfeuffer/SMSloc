@@ -32,7 +32,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/helpButton"
         android:layout_toLeftOf="@+id/timeSpinner"
-        android:text="@string/timeText" />
+        android:text="@string/timeDescription" />
 
     <TextView
         android:id="@+id/textView2"
