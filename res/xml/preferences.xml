@@ -4,11 +4,12 @@
         android:key="trigger"
         android:title="@string/textTitle"
         android:summary="@string/textTriggerDescription"
-        android:defaultValue="WhereRU?" />
+        android:defaultValue="@string/defaultText" />
     <ListPreference
         android:key="time"
         android:title="@string/timeTitle"
         android:summary="@string/timeDescription"
         android:entries="@array/times"
-        android:entryValues="@array/timeValues" />
+        android:entryValues="@array/timeValues"
+        android:defaultValue="@string/defaultTime" />
 </PreferenceScreen>

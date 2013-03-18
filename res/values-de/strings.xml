@@ -4,6 +4,7 @@
     <string name="app_name">SMS loc</string>
     <string name="active">Aktiv</string>
     <string name="defaultText">SMS loc</string>
+    <string name="defaultTrigger">Wo bist Du</string>
     <string name="textIntro">Diese Anwendung kann beim Eingang einer SMS die aktuelle Position an den Sender als SMS zurück schicken. Auf welchen Text reagiert wird, können Sie in den Einstellungen ändern.</string>
     <string name="textTriggerDescription">Auf diesen Text hin soll eine Antwort gesendet werden</string>
     <string name="textTriggerOn">Automatische Antworten sind aktiviert. Geantwortet wird auf:</string>
@@ -19,7 +20,6 @@
     <string name="locationUnknown">Position konnte nicht ermittelt werden.</string>
     <string name="toastRequest">Versuche, Position an %1$s zu senden</string>
     <string name="toggleButton">Aktivieren</string>
-    <string name="helpButton">Hilfe</string>
     <string name="helpUrl">http://www.pfeuffer-web.de/SMSloc/help-de</string>
     <string-array name="times">
         <item>15 Sekunden</item>

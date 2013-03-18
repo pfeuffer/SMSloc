@@ -4,9 +4,10 @@
     <string name="app_name">SMS loc</string>
     <string name="active">active</string>
     <string name="defaultText">SMS loc</string>
+    <string name="defaultTrigger">WhereRU</string>
     <string name="textIntro">This app can respond to SMS messages with a given text by sending the actual gps location back to the sender.</string>
     <string name="textTitle">Trigger text</string>
-    <string name="textTriggerDescription">Enter the text, to which a response should be triggered:</string>
+    <string name="textTriggerDescription">Enter the text, on which a response should be triggered:</string>
     <string name="textTriggerOn">Automatic responses are activated. We will respond to SMS messages with the text</string>
     <string name="textTriggerOnShort">Respond to:</string>
     <string name="textTriggerOff">No automatic responses will be sent.</string>
@@ -19,8 +20,7 @@
     <string name="toastRequest">trying to send location to %1$s</string>
     <string name="toggleButton">active</string>
     <string name="timeTitle">Time to gps fix</string>
-    <string name="timeDescription">How long should I try, to determine the actual gps location before sending back a response?</string>
-    <string name="helpButton">help</string>
+    <string name="timeDescription">How long should I try to determine the actual gps location before sending back a response?</string>
     <string name="helpUrl">http://www.pfeuffer-web.de/SMSloc/help-en</string>
     <string-array name="times">
         <item>15 seconds</item>
@@ -40,5 +40,6 @@
         <item>600</item>
         <item>3600</item>
     </string-array>
+    <string name="defaultTime">600</string>
     <string name="preferences">Preferences</string>
 </resources>

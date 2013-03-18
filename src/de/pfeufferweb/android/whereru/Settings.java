@@ -24,12 +24,14 @@ public class Settings {
 
 	public static String getRequestText(Context context) {
 		SharedPreferences prefs = getPrefs(context);
-		return prefs.getString(TRIGGER, "WhereRU?");
+		return prefs
+				.getString(TRIGGER, context.getString(R.string.defaultText));
 	}
 
 	public static int getSeconds(Context context) {
 		SharedPreferences prefs = getPrefs(context);
-		return Integer.parseInt(prefs.getString(TIME, "3"));
+		return Integer.parseInt(prefs.getString(TIME,
+				context.getString(R.string.defaultTime)));
 	}
 
 	private static SharedPreferences getPrefs(Context context) {

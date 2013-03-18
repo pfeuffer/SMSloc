@@ -4,16 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".ListenActivity" >
 
-    <Button
-        android:id="@+id/helpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_marginBottom="26dp"
-        android:text="@string/helpButton"
-        android:visibility="invisible" />
-
     <ToggleButton
         android:id="@+id/activateToggleButton"
         android:layout_width="wrap_content"
