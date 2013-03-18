@@ -1,5 +1,7 @@
 package de.pfeufferweb.android.whereru;
 
+import java.util.Locale;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +29,8 @@ public class SmsReceiver extends BroadcastReceiver {
 				SmsMessage msg = SmsMessage.createFromPdu((byte[]) pdus[i]);
 				String origin = msg.getOriginatingAddress();
 				String message = msg.getMessageBody().toString().trim();
-				if (message.equals(requestText)) {
+				if (message.toUpperCase(Locale.getDefault()).equals(
+						requestText.toUpperCase(Locale.getDefault()))) {
 					int notificationId = notifications.setNotification(context,
 							origin);
 					Toast.makeText(context,
