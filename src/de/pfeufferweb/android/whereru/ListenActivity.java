@@ -3,6 +3,7 @@ package de.pfeufferweb.android.whereru;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,7 @@ public class ListenActivity extends Activity {
 		toggleButton.setChecked(active);
 		triggerText.setText(Settings.getRequestText(this));
 		setTriggerActivated(active);
+		Log.d("ListenActivity", "" + Settings.getSeconds(this));
 	}
 
 	@Override
@@ -70,6 +72,7 @@ public class ListenActivity extends Activity {
 		int visibility = activated ? View.VISIBLE : View.INVISIBLE;
 		triggerText.setVisibility(visibility);
 		triggerOnText.setVisibility(visibility);
-		triggerOffText.setVisibility(!activated ? View.VISIBLE : View.INVISIBLE);
+		triggerOffText
+				.setVisibility(!activated ? View.VISIBLE : View.INVISIBLE);
 	}
 }

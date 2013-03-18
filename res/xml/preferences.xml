@@ -6,7 +6,7 @@
         android:summary="@string/textTriggerDescription"
         android:defaultValue="WhereRU?" />
     <ListPreference
-        android:key="times"
+        android:key="time"
         android:title="@string/timeTitle"
         android:summary="@string/timeDescription"
         android:entries="@array/times"
