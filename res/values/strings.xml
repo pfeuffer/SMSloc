@@ -6,8 +6,10 @@
     <string name="defaultText">SMS loc</string>
     <string name="textIntro">This app can respond to SMS messages with a given text by sending the actual gps location back to the sender.</string>
     <string name="textTitle">Trigger text</string>
-    <string name="textDescription">Enter the text, to which a response should be triggered:</string>
-    <string name="textDescriptionShort">Respond to:</string>
+    <string name="textTriggerDescription">Enter the text, to which a response should be triggered:</string>
+    <string name="textTriggerOn">Automatic responses are activated. We will respond to SMS messages with the text</string>
+    <string name="textTriggerOnShort">Respond to:</string>
+    <string name="textTriggerOff">No automatic responses will be sent.</string>
     <string name="activateDescription">Select this, to activate automatic responses:</string>
     <string name="notificationTitle">request for location</string>
     <string name="notificationSent">location sent to %1$s</string>

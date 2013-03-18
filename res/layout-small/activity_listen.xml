@@ -14,23 +14,6 @@
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="19dp"
-        android:text="@string/textDescriptionShort" />
-
-    <Spinner
-        android:id="@+id/timeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_toRightOf="@+id/helpButton" />
-
-    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,26 +30,30 @@
         android:layout_alignParentTop="true"
         android:text="@string/toggleButton" />
 
-    <EditText
-        android:id="@+id/responseText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/defaultText" >
-
-        <requestFocus />
-    </EditText>
-
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewTriggerOn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="@string/timeDescription" />
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="30dp"
+        android:text="@string/textTriggerOnShort" />
+
+    <TextView
+        android:id="@+id/textViewTriggerOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="30dp"
+        android:text="@string/textTriggerOff" />
+
+    <TextView
+        android:id="@+id/textViewTrigger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textViewTriggerOn"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

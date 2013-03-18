@@ -6,25 +6,13 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 public class Settings {
+	private static final String TIME = "TIME";
 	static final String ACTIVE = "active";
 	static final String TRIGGER_TEXT = "trigger";
-	static final String SECONDS = "seconds";
 
 	public static void setActive(Context context, boolean active) {
 		Editor editor = getEditor(context);
 		editor.putBoolean(ACTIVE, active);
-		editor.commit();
-	}
-
-	public static void setRequestText(Context context, String text) {
-		Editor editor = getEditor(context);
-		editor.putString(TRIGGER_TEXT, text);
-		editor.commit();
-	}
-
-	public static void setSeconds(Context context, int seconds) {
-		Editor editor = getEditor(context);
-		editor.putInt(SECONDS, seconds);
 		editor.commit();
 	}
 
@@ -40,7 +28,7 @@ public class Settings {
 
 	public static int getSeconds(Context context) {
 		SharedPreferences prefs = getPrefs(context);
-		return prefs.getInt(SECONDS, 3);
+		return prefs.getInt(TIME, 60);
 	}
 
 	private static Editor getEditor(Context context) {

@@ -3,7 +3,7 @@
     <EditTextPreference
         android:key="trigger"
         android:title="@string/textTitle"
-        android:summary="@string/textDescription"
+        android:summary="@string/textTriggerDescription"
         android:defaultValue="WhereRU?" />
     <ListPreference
         android:key="times"

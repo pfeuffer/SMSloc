@@ -4,11 +4,11 @@
     <string name="app_name">SMS loc</string>
     <string name="active">Aktiv</string>
     <string name="defaultText">SMS loc</string>
-    <string name="textIntro">Diese Anwendung kann beim Eingang einer SMS die aktuelle Position
-        an den Sender als SMS zurück schicken. Auf welchen Text reagiert
-        wird, können Sie unten angeben.</string>
-    <string name="textDescription">Auf diesen Text hin soll eine Antwort gesendet werden:</string>
-    <string name="textDescriptionShort">Antworten auf:</string>
+    <string name="textIntro">Diese Anwendung kann beim Eingang einer SMS die aktuelle Position an den Sender als SMS zurück schicken. Auf welchen Text reagiert wird, können Sie in den Einstellungen ändern.</string>
+    <string name="textTriggerDescription">Auf diesen Text hin soll eine Antwort gesendet werden</string>
+    <string name="textTriggerOn">Automatische Antworten sind aktiviert. Geantwortet wird auf:</string>
+    <string name="textTriggerOnShort">Antworten auf:</string>
+    <string name="textTriggerOff">Es werden keine automatische Antworten geschickt.</string>
     <string name="activateDescription">Aktivieren, um automatisiert Antworten zu senden:</string>
     <string name="timeTitle">Zeit für GPS-Fix</string>
     <string name="timeDescription">Wie lange soll maximal versucht werden, bei einer Anfrage die GPS-Position zu ermitteln, bevor eine Antwort geschickt wird?</string>

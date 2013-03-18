@@ -14,26 +14,6 @@
         android:text="@string/helpButton"
         android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="19dp"
-        android:text="@string/textDescription" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/responseText"
-        android:layout_marginTop="20dp"
-        android:text="@string/activateDescription" />
-
     <ToggleButton
         android:id="@+id/activateToggleButton"
         android:layout_width="wrap_content"
@@ -44,23 +24,6 @@
         android:text="@string/toggleButton" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignRight="@+id/helpButton"
-        android:layout_below="@+id/activateToggleButton"
-        android:layout_marginTop="18dp"
-        android:text="@string/timeDescription" />
-
-    <Spinner
-        android:id="@+id/timeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/responseText"
-        android:layout_below="@+id/textView4" />
-
-    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,14 +31,40 @@
         android:layout_alignParentTop="true"
         android:text="@string/textIntro" />
 
-    <EditText
-        android:id="@+id/responseText"
+    <TextView
+        android:id="@+id/textViewTriggerOn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="128dp"
+        android:text="@string/textTriggerOn" />
+
+    <TextView
+        android:id="@+id/textViewTriggerOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="128dp"
+        android:text="@string/textTriggerOff" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="21dp"
+        android:text="@string/activateDescription" />
+
+    <TextView
+        android:id="@+id/textViewTrigger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTriggerOn"
         android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/defaultText" />
+        android:layout_marginTop="21dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
