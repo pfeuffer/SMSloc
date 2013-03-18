@@ -6,7 +6,7 @@ Dieses geschieht mithilfe von SMS-Nachrichten. Das Gerät, auf dem diese App ins
 
 Bei Erhalt einer entsprechenden SMS versucht die App, die aktuelle Position per GPS zu ermitteln. Wie lange sie dieses versucht, können Sie selber einstellen. Da das GPS erst zu diesem Zeitpunkt aktiviert wird, verbraucht diese App ansonsten keinen Strom. Konnte die Position ermittelt werden, wird als Antwort eine SMS mit einem Google-Maps-Link zurück geschickt (ein Beispiel ist in den Bildschirmfotos zu sehen).
 
-Bitte ändern Sie bei der ersten Verwendung den Text, auf den die App reagieren soll.
+Bitte ändern Sie bei der ersten Verwendung über die Einstellungen den Text, auf den die App reagieren soll.
 
 ACHTUNG: Diese App kommuniziert per SMS. Dieses erzeugt bei ihrem Provider entsprechende Kosten, für die Sie selber verantwortlich sind! Es muss sowohl der "Fragende" als auch der "Antwortende" eine SMS verschicken und entsprechend bezahlen. Deaktivieren Sie die App, wenn Sie sie aktuell nicht benötigen (Schalter in der App auf "Aus" schalten)!
 

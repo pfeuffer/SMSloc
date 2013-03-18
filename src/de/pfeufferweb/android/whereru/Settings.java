@@ -24,8 +24,8 @@ public class Settings {
 
 	public static String getRequestText(Context context) {
 		SharedPreferences prefs = getPrefs(context);
-		return prefs
-				.getString(TRIGGER, context.getString(R.string.defaultText));
+		return prefs.getString(TRIGGER,
+				context.getString(R.string.defaultTrigger));
 	}
 
 	public static int getSeconds(Context context) {
