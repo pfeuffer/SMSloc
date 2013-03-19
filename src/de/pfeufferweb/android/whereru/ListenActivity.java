@@ -22,6 +22,8 @@ public class ListenActivity extends ListActivity {
 	private TextView triggerText;
 	private TextView triggerOnText;
 	private TextView triggerOffText;
+	private TextView historyText;
+	private TextView noHistoryText;
 	private ToggleButton toggleButton;
 
 	@Override
@@ -32,6 +34,9 @@ public class ListenActivity extends ListActivity {
 
 		triggerOnText = (TextView) findViewById(R.id.textViewTriggerOn);
 		triggerOffText = (TextView) findViewById(R.id.textViewTriggerOff);
+
+		historyText = (TextView) findViewById(R.id.textViewHistory);
+		noHistoryText = (TextView) findViewById(R.id.textViewNoHistory);
 
 		toggleButton = (ToggleButton) findViewById(R.id.activateToggleButton);
 		toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -71,6 +76,13 @@ public class ListenActivity extends ListActivity {
 
 	private void fillRequests() {
 		List<String> values = render(datasource.getAllRequests());
+		if (values.isEmpty()) {
+			noHistoryText.setVisibility(View.VISIBLE);
+			historyText.setVisibility(View.INVISIBLE);
+		} else {
+			noHistoryText.setVisibility(View.INVISIBLE);
+			historyText.setVisibility(View.VISIBLE);
+		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, values);
 		setListAdapter(adapter);

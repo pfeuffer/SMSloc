@@ -58,13 +58,22 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textViewHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textViewTrigger"
         android:layout_marginTop="10dp"
         android:text="@string/textRequests" />
+
+    <TextView
+        android:id="@+id/textViewNoHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewTrigger"
+        android:layout_marginTop="10dp"
+        android:text="@string/textNoRequests" />
 
     <ListView
         android:id="@android:id/list"
