@@ -60,8 +60,13 @@ public class RequestRepository {
 		return requests;
 	}
 
+	public void deleteAllRequests() {
+		database.delete(RequestSQLiteHelper.TABLE_REQUESTS, null, null);
+	}
+
 	private Request cursorToRequest(Cursor cursor) {
 		return new Request(cursor.getLong(0), cursor.getString(1),
 				cursor.getLong(2));
 	}
+
 }

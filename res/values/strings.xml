@@ -43,4 +43,5 @@
     </string-array>
     <string name="defaultTime">600</string>
     <string name="preferences">Preferences</string>
+    <string name="clearRequests">Clear history</string>
 </resources>

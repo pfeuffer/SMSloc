@@ -46,13 +46,7 @@ public class ListenActivity extends ListActivity {
 		datasource = new RequestRepository(this);
 		datasource.open();
 
-		List<String> values = render(datasource.getAllRequests());
-
-		// Use the SimpleCursorAdapter to show the
-		// elements in a ListView
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, values);
-		setListAdapter(adapter);
+		fillRequests();
 	}
 
 	private List<String> render(List<Request> requests) {
@@ -70,12 +64,16 @@ public class ListenActivity extends ListActivity {
 		toggleButton.setChecked(active);
 		triggerText.setText(Settings.getRequestText(this));
 		setTriggerActivated(active);
+		fillRequests();
+		Log.d("ListenActivity", "" + Settings.getSeconds(this));
+		super.onStart();
+	}
+
+	private void fillRequests() {
 		List<String> values = render(datasource.getAllRequests());
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, values);
 		setListAdapter(adapter);
-		Log.d("ListenActivity", "" + Settings.getSeconds(this));
-		super.onStart();
 	}
 
 	@Override
@@ -91,10 +89,18 @@ public class ListenActivity extends ListActivity {
 		case R.id.preferences:
 			startActivity(new Intent(this, MainPreferenceActivity.class));
 			break;
+		case R.id.clearRequests:
+			clearRequests();
+			fillRequests();
+			break;
 		default:
 			break;
 		}
 		return false;
+	}
+
+	private void clearRequests() {
+		this.datasource.deleteAllRequests();
 	}
 
 	@Override

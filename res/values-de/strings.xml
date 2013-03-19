@@ -32,4 +32,5 @@
         <item>1 Stunde</item>
     </string-array>
     <string name="preferences">Einstellungen</string>
+    <string name="clearRequests">Historie löschen</string>
 </resources>
