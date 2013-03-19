@@ -11,6 +11,7 @@
     <string name="textTriggerOn">Automatic responses are activated. We will respond to SMS messages with the text</string>
     <string name="textTriggerOnShort">Respond to:</string>
     <string name="textTriggerOff">No automatic responses will be sent.</string>
+    <string name="textRequests">Requests so far:</string>
     <string name="activateDescription">Select this, to activate automatic responses:</string>
     <string name="notificationTitle">request for location</string>
     <string name="notificationSent">location sent to %1$s</string>

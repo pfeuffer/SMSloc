@@ -23,6 +23,10 @@ public class LocationSender {
 		Log.d("SendService", "text: " + text);
 		// Toast.makeText(SendService.this, text, Toast.LENGTH_LONG).show();
 		sendSMS(text, receiver, notificationId);
+		RequestRepository db = new RequestRepository(context);
+		db.open();
+		db.createRequest(receiver);
+		db.close();
 	}
 
 	private void sendSMS(String message, final String receiver,

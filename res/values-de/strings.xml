@@ -10,6 +10,7 @@
     <string name="textTriggerOn">Automatische Antworten sind aktiviert. Geantwortet wird auf:</string>
     <string name="textTriggerOnShort">Antworten auf:</string>
     <string name="textTriggerOff">Es werden keine automatische Antworten geschickt.</string>
+    <string name="textRequests">Bisherige Anfragen:</string>
     <string name="activateDescription">Aktivieren, um automatisiert Antworten zu senden:</string>
     <string name="timeTitle">Zeit für GPS-Fix</string>
     <string name="timeDescription">Wie lange soll maximal versucht werden, bei einer Anfrage die GPS-Position zu ermitteln, bevor eine Antwort geschickt wird?</string>
