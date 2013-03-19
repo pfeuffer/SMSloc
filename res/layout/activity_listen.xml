@@ -79,5 +79,5 @@
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5" />
+        android:layout_below="@+id/textViewHistory" />
 </RelativeLayout>
