@@ -40,9 +40,9 @@ public class RequestSQLiteHelper extends SQLiteOpenHelper {
 		switch (oldVersion) {
 		case 2:
 			database.execSQL("alter table " + TABLE_REQUESTS + " add column "
-					+ COLUMN_LONGITUDE + " real");
+					+ COLUMN_LONGITUDE + " real;");
 			database.execSQL("alter table " + TABLE_REQUESTS + " add column "
-					+ COLUMN_LATITUDE + " real");
+					+ COLUMN_LATITUDE + " real;");
 			break;
 		default:
 			break;
