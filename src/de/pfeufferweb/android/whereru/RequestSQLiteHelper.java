@@ -38,7 +38,7 @@ public class RequestSQLiteHelper extends SQLiteOpenHelper {
 		Log.d("RequestSQLiteHelper", "updating from " + oldVersion + " to "
 				+ newVersion);
 		switch (oldVersion) {
-		case 2:
+		case 1:
 			database.execSQL("alter table " + TABLE_REQUESTS + " add column "
 					+ COLUMN_LONGITUDE + " real;");
 			database.execSQL("alter table " + TABLE_REQUESTS + " add column "
