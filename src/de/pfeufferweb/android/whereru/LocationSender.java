@@ -21,11 +21,10 @@ public class LocationSender {
 	public void send(Location location) {
 		String text = format(location);
 		Log.d("SendService", "text: " + text);
-		// Toast.makeText(SendService.this, text, Toast.LENGTH_LONG).show();
 		sendSMS(text, receiver, notificationId);
 		RequestRepository db = new RequestRepository(context);
 		db.open();
-		db.createRequest(receiver);
+		db.createRequest(receiver, location);
 		db.close();
 	}
 

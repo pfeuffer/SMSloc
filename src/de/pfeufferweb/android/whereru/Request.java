@@ -7,14 +7,26 @@ import android.text.format.DateFormat;
 
 public class Request {
 
-	private final long id;
 	private final String requester;
 	private final long time;
+	private final SimpleLocation location;
 
-	public Request(long id, String requester, long time) {
-		this.id = id;
+	public Request(long id, String requester, long time, SimpleLocation location) {
 		this.requester = requester;
 		this.time = time;
+		this.location = location;
+	}
+
+	public String getRequester() {
+		return requester;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public SimpleLocation getLocation() {
+		return location;
 	}
 
 	public String toString(Context context) {

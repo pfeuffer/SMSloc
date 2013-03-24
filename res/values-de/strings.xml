@@ -34,4 +34,7 @@
     </string-array>
     <string name="preferences">Einstellungen</string>
     <string name="clearRequests">Historie löschen</string>
+    <string name="sendAgain">Erneut senden</string>
+    <string name="locationFound">Position gesendet</string>
+    <string name="noLocation">fehlgeschlagen</string>
 </resources>

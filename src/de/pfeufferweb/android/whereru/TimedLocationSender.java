@@ -38,7 +38,7 @@ public class TimedLocationSender extends Thread {
 		UpdateThread updateThread = new UpdateThread();
 		updateThread.start();
 		try {
-			while (!isGoodEnough() && inTime()) {
+			while (!isGoodEnough() && inTime() && isActive()) {
 				try {
 					this.wait(WAIT_TIME);
 					Log.d("TimedLocationProvider", "checking...");
@@ -48,10 +48,14 @@ public class TimedLocationSender extends Thread {
 		} finally {
 			updateThread.close();
 		}
-		if (Settings.getActive(context)) {
+		if (isActive()) {
 			new LocationSender(context, receiver, notificationId)
 					.send(lastLocation);
 		}
+	}
+
+	private boolean isActive() {
+		return Settings.getActive(context);
 	}
 
 	private boolean inTime() {

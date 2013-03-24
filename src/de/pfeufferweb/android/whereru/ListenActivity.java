@@ -1,20 +1,33 @@
 package de.pfeufferweb.android.whereru;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import android.widget.TwoLineListItem;
 
 public class ListenActivity extends ListActivity {
 	private RequestRepository datasource;
@@ -51,15 +64,54 @@ public class ListenActivity extends ListActivity {
 		datasource = new RequestRepository(this);
 		datasource.open();
 
+		this.getListView().setOnItemClickListener(new OnItemClickListener() {
+			@SuppressLint("DefaultLocale")
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Request request = (Request) getListAdapter().getItem(position);
+				String s = request.toString(ListenActivity.this);
+				Log.d("ListenActivity", "clicked " + s);
+				if (request.getLocation() != null) {
+					String uri = String.format("geo:%f,%f", request
+							.getLocation().getLatitude(), request.getLocation()
+							.getLongitude());
+					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
+				}
+			}
+		});
+		registerForContextMenu(getListView());
+
 		fillRequests();
 	}
 
-	private List<String> render(List<Request> requests) {
-		List<String> result = new ArrayList<String>(requests.size());
-		for (Request request : requests) {
-			result.add(request.toString(this));
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		if (v == getListView() && Settings.getActive(this)) {
+
+			menu.add(getString(R.string.sendAgain)).setOnMenuItemClickListener(
+					new OnMenuItemClickListener() {
+						@Override
+						public boolean onMenuItemClick(MenuItem item) {
+							AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+									.getMenuInfo();
+							int index = info.position;
+							Request request = (Request) getListAdapter()
+									.getItem(index);
+							Intent startService = new Intent(
+									ListenActivity.this, SendService.class);
+							startService.putExtra("receiver",
+									request.getRequester());
+							startService.putExtra("notificationId", -1);
+							startService.putExtra("seconds",
+									Settings.getSeconds(ListenActivity.this));
+							ListenActivity.this.startService(startService);
+							return true;
+						}
+					});
 		}
-		return result;
 	}
 
 	@Override
@@ -75,22 +127,51 @@ public class ListenActivity extends ListActivity {
 	}
 
 	private void fillRequests() {
-		List<String> values = render(datasource.getAllRequests());
-		if (values.isEmpty()) {
+		final List<Request> requests = datasource.getAllRequests();
+		if (requests.isEmpty()) {
 			noHistoryText.setVisibility(View.VISIBLE);
 			historyText.setVisibility(View.INVISIBLE);
 		} else {
 			noHistoryText.setVisibility(View.INVISIBLE);
 			historyText.setVisibility(View.VISIBLE);
 		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, values);
+		ArrayAdapter<Request> adapter = new ArrayAdapter<Request>(this,
+				android.R.layout.simple_list_item_2, requests) {
+			@SuppressWarnings("deprecation")
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				TwoLineListItem row;
+				if (convertView == null) {
+					LayoutInflater inflater = (LayoutInflater) getApplicationContext()
+							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					row = (TwoLineListItem) inflater.inflate(
+							android.R.layout.simple_list_item_2, null);
+				} else {
+					row = (TwoLineListItem) convertView;
+				}
+				Request data = requests.get(position);
+				row.getText1().setTextColor(
+						getResources().getColor(android.R.color.black));
+				row.getText2().setTextColor(
+						getResources().getColor(android.R.color.black));
+				String success = data.getLocation() == null ? getString(R.string.noLocation)
+						: getString(R.string.locationFound);
+				row.getText1().setText(data.getRequester());
+				String dateOfRequest = DateFormat.getDateFormat(
+						ListenActivity.this).format(new Date(data.getTime()));
+				String timeOfRequest = DateFormat.getTimeFormat(
+						ListenActivity.this).format(new Date(data.getTime()));
+				row.getText2().setText(
+						String.format(getString(R.string.locationListEntry),
+								dateOfRequest, timeOfRequest, success));
+				return row;
+			}
+		};
 		setListAdapter(adapter);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_listen, menu);
 		return true;
 	}
