@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Locale;
 
 import android.app.ListActivity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -38,6 +41,13 @@ public class ListenActivity extends ListActivity {
 	private TextView historyText;
 	private TextView noHistoryText;
 	private ToggleButton toggleButton;
+
+	private final BroadcastReceiver newRequestReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			fillRequests();
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +92,10 @@ public class ListenActivity extends ListActivity {
 			}
 		});
 		registerForContextMenu(getListView());
+
+		LocalBroadcastManager.getInstance(this).registerReceiver(
+				newRequestReceiver,
+				new IntentFilter(LocationSender.BROADCAST_NEW_REQUEST));
 
 		fillRequests();
 	}
@@ -206,6 +220,13 @@ public class ListenActivity extends ListActivity {
 	protected void onPause() {
 		datasource.close();
 		super.onPause();
+	}
+
+	@Override
+	protected void onDestroy() {
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(
+				newRequestReceiver);
+		super.onDestroy();
 	}
 
 	private void setTriggerActivated(boolean activated) {

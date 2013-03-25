@@ -4,10 +4,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.SmsManager;
 import android.util.Log;
 
 public class LocationSender {
+	static final String BROADCAST_NEW_REQUEST = "newRequest";
 	private final Context context;
 	private final String receiver;
 	private final int notificationId;
@@ -26,6 +28,12 @@ public class LocationSender {
 		db.open();
 		db.createRequest(receiver, location);
 		db.close();
+		sendBroadcast();
+	}
+
+	private void sendBroadcast() {
+		Intent intent = new Intent(BROADCAST_NEW_REQUEST);
+		LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 	}
 
 	private void sendSMS(String message, final String receiver,
