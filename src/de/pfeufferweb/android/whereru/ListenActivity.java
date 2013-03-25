@@ -78,7 +78,6 @@ public class ListenActivity extends ListActivity {
 		});
 
 		datasource = new RequestRepository(this);
-		datasource.open();
 
 		this.getListView().setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -138,7 +137,6 @@ public class ListenActivity extends ListActivity {
 
 	@Override
 	protected void onStart() {
-		datasource.open();
 		boolean active = Settings.getActive(this);
 		toggleButton.setChecked(active);
 		triggerText.setText(Settings.getRequestText(this));
@@ -149,7 +147,10 @@ public class ListenActivity extends ListActivity {
 	}
 
 	private void fillRequests() {
+		datasource.open();
+
 		final List<LocationRequest> requests = datasource.getAllRequests();
+		datasource.close();
 		if (requests.isEmpty()) {
 			noHistoryText.setVisibility(View.VISIBLE);
 			historyText.setVisibility(View.INVISIBLE);
@@ -235,13 +236,10 @@ public class ListenActivity extends ListActivity {
 	}
 
 	private void clearRequests() {
+		datasource.open();
 		this.datasource.deleteAllRequests();
-	}
-
-	@Override
-	protected void onPause() {
 		datasource.close();
-		super.onPause();
+		this.fillRequests();
 	}
 
 	@Override
