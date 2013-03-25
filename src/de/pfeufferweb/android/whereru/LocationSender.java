@@ -7,32 +7,43 @@ import android.location.Location;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.SmsManager;
 import android.util.Log;
+import de.pfeufferweb.android.whereru.repository.LocationRequest;
+import de.pfeufferweb.android.whereru.repository.RequestRepository;
+import de.pfeufferweb.android.whereru.repository.SimpleLocation;
 
 public class LocationSender {
-	static final String BROADCAST_NEW_REQUEST = "newRequest";
 	private final Context context;
-	private final String receiver;
+	private final LocationRequest request;
 	private final int notificationId;
 
-	public LocationSender(Context context, String receiver, int notificationId) {
+	public LocationSender(Context context, LocationRequest request,
+			int notificationId) {
 		this.context = context;
-		this.receiver = receiver;
+		this.request = request;
 		this.notificationId = notificationId;
 	}
 
 	public void send(Location location) {
+		if (location == null) {
+			request.setNoLocation();
+			Log.d("SendService", "set request to no location");
+		} else {
+			request.setSuccess(new SimpleLocation(location.getLongitude(),
+					location.getLatitude()));
+			Log.d("SendService", "set request to success");
+		}
 		String text = format(location);
 		Log.d("SendService", "text: " + text);
-		sendSMS(text, receiver, notificationId);
+		sendSMS(text, request.getRequester(), notificationId);
 		RequestRepository db = new RequestRepository(context);
 		db.open();
-		db.createRequest(receiver, location);
+		db.updateRequest(request);
 		db.close();
 		sendBroadcast();
 	}
 
 	private void sendBroadcast() {
-		Intent intent = new Intent(BROADCAST_NEW_REQUEST);
+		Intent intent = new Intent(ListenActivity.BROADCAST_NEW_REQUEST);
 		LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 	}
 

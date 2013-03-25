@@ -1,20 +1,28 @@
-package de.pfeufferweb.android.whereru;
+package de.pfeufferweb.android.whereru.repository;
 
 import java.util.Date;
 
 import android.content.Context;
 import android.text.format.DateFormat;
 
-public class Request {
+public class LocationRequest {
 
+	private final long id;
 	private final String requester;
 	private final long time;
-	private final SimpleLocation location;
+	private SimpleLocation location;
+	private Status status;
 
-	public Request(long id, String requester, long time, SimpleLocation location) {
+	LocationRequest(long id, String requester, long time) {
+		this.id = id;
 		this.requester = requester;
 		this.time = time;
-		this.location = location;
+		this.location = null;
+		this.status = Status.RUNNING;
+	}
+
+	long getId() {
+		return id;
 	}
 
 	public String getRequester() {
@@ -27,6 +35,20 @@ public class Request {
 
 	public SimpleLocation getLocation() {
 		return location;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setSuccess(SimpleLocation location) {
+		this.status = Status.SUCCESS;
+		this.location = location;
+	}
+
+	public void setNoLocation() {
+		this.status = Status.NO_LOCATION;
+		this.location = null;
 	}
 
 	public String toString(Context context) {

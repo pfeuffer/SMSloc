@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+import de.pfeufferweb.android.whereru.repository.LocationRequest;
 
 public class TimedLocationSender extends Thread {
 
@@ -15,17 +16,17 @@ public class TimedLocationSender extends Thread {
 
 	private final LocationManager locationManager;
 	private final Context context;
-	private final String receiver;
+	private final LocationRequest request;
 	private final int seconds;
 	private final int notificationId;
 
 	private long startTime;
 	private Location lastLocation;
 
-	public TimedLocationSender(Context context, String receiver, int seconds,
-			int notificationId) {
+	public TimedLocationSender(Context context, LocationRequest request,
+			int seconds, int notificationId) {
 		this.context = context;
-		this.receiver = receiver;
+		this.request = request;
 		this.seconds = seconds;
 		this.notificationId = notificationId;
 		this.locationManager = (LocationManager) context
@@ -49,7 +50,7 @@ public class TimedLocationSender extends Thread {
 			updateThread.close();
 		}
 		if (isActive()) {
-			new LocationSender(context, receiver, notificationId)
+			new LocationSender(context, request, notificationId)
 					.send(lastLocation);
 		}
 	}

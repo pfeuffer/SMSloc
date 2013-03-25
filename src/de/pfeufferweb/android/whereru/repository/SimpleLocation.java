@@ -1,4 +1,4 @@
-package de.pfeufferweb.android.whereru;
+package de.pfeufferweb.android.whereru.repository;
 
 public class SimpleLocation {
 	private final double longitude;

@@ -31,8 +31,14 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.TwoLineListItem;
+import de.pfeufferweb.android.whereru.repository.LocationRequest;
+import de.pfeufferweb.android.whereru.repository.RequestRepository;
+import de.pfeufferweb.android.whereru.repository.Status;
 
 public class ListenActivity extends ListActivity {
+
+	static final String BROADCAST_NEW_REQUEST = "newRequest";
+
 	private RequestRepository datasource;
 
 	private TextView triggerText;
@@ -78,7 +84,8 @@ public class ListenActivity extends ListActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Request request = (Request) getListAdapter().getItem(position);
+				LocationRequest request = (LocationRequest) getListAdapter()
+						.getItem(position);
 				String s = request.toString(ListenActivity.this);
 				Log.d("ListenActivity", "clicked " + s);
 				if (request.getLocation() != null) {
@@ -95,7 +102,7 @@ public class ListenActivity extends ListActivity {
 
 		LocalBroadcastManager.getInstance(this).registerReceiver(
 				newRequestReceiver,
-				new IntentFilter(LocationSender.BROADCAST_NEW_REQUEST));
+				new IntentFilter(ListenActivity.BROADCAST_NEW_REQUEST));
 
 		fillRequests();
 	}
@@ -113,7 +120,7 @@ public class ListenActivity extends ListActivity {
 							AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 									.getMenuInfo();
 							int index = info.position;
-							Request request = (Request) getListAdapter()
+							LocationRequest request = (LocationRequest) getListAdapter()
 									.getItem(index);
 							Intent startService = new Intent(
 									ListenActivity.this, SendService.class);
@@ -142,7 +149,7 @@ public class ListenActivity extends ListActivity {
 	}
 
 	private void fillRequests() {
-		final List<Request> requests = datasource.getAllRequests();
+		final List<LocationRequest> requests = datasource.getAllRequests();
 		if (requests.isEmpty()) {
 			noHistoryText.setVisibility(View.VISIBLE);
 			historyText.setVisibility(View.INVISIBLE);
@@ -150,8 +157,8 @@ public class ListenActivity extends ListActivity {
 			noHistoryText.setVisibility(View.INVISIBLE);
 			historyText.setVisibility(View.VISIBLE);
 		}
-		ArrayAdapter<Request> adapter = new ArrayAdapter<Request>(this,
-				android.R.layout.simple_list_item_2, requests) {
+		ArrayAdapter<LocationRequest> adapter = new ArrayAdapter<LocationRequest>(
+				this, android.R.layout.simple_list_item_2, requests) {
 			@SuppressWarnings("deprecation")
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
@@ -164,18 +171,19 @@ public class ListenActivity extends ListActivity {
 				} else {
 					row = (TwoLineListItem) convertView;
 				}
-				Request data = requests.get(position);
+				LocationRequest request = requests.get(position);
 				row.getText1().setTextColor(
 						getResources().getColor(android.R.color.black));
 				row.getText2().setTextColor(
 						getResources().getColor(android.R.color.black));
-				String success = data.getLocation() == null ? getString(R.string.noLocation)
-						: getString(R.string.locationFound);
-				String requester = data.getRequester();
+				String success = stringForStatus(request.getStatus());
+				String requester = request.getRequester();
 				String dateOfRequest = DateFormat.getDateFormat(
-						ListenActivity.this).format(new Date(data.getTime()));
+						ListenActivity.this)
+						.format(new Date(request.getTime()));
 				String timeOfRequest = DateFormat.getTimeFormat(
-						ListenActivity.this).format(new Date(data.getTime()));
+						ListenActivity.this)
+						.format(new Date(request.getTime()));
 				row.getText1().setText(
 						String.format(
 								getString(R.string.locationListEntryHeader),
@@ -185,6 +193,20 @@ public class ListenActivity extends ListActivity {
 								getString(R.string.locationListEntryFooter),
 								requester, success));
 				return row;
+			}
+
+			private String stringForStatus(Status status) {
+				switch (status) {
+				case NO_LOCATION:
+					return getString(R.string.noLocation);
+				case SUCCESS:
+					return getString(R.string.locationFound);
+				case RUNNING:
+					return getString(R.string.running);
+				default:
+					throw new IllegalArgumentException("unknown status: "
+							+ status);
+				}
 			}
 		};
 		setListAdapter(adapter);

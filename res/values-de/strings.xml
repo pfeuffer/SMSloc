@@ -37,4 +37,5 @@
     <string name="sendAgain">Erneut senden</string>
     <string name="locationFound">Position gesendet</string>
     <string name="noLocation">fehlgeschlagen</string>
+    <string name="running">noch nicht gesendet</string>
 </resources>
