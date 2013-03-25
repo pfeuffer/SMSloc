@@ -45,7 +45,8 @@
     <string name="defaultTime">600</string>
     <string name="preferences">Preferences</string>
     <string name="clearRequests">Clear history</string>
-    <string name="locationListEntry" formatted="false">"%s, %s (%s)</string>
+    <string name="locationListEntryHeader" formatted="false">"%s, %s</string>
+    <string name="locationListEntryFooter" formatted="false">"%s (%s)</string>
     <string name="locationFound">location sent</string>
     <string name="noLocation">no location found</string>
     <string name="sendAgain">send again</string>

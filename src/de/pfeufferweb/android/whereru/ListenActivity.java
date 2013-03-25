@@ -2,8 +2,8 @@ package de.pfeufferweb.android.whereru;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -65,7 +65,6 @@ public class ListenActivity extends ListActivity {
 		datasource.open();
 
 		this.getListView().setOnItemClickListener(new OnItemClickListener() {
-			@SuppressLint("DefaultLocale")
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -73,9 +72,11 @@ public class ListenActivity extends ListActivity {
 				String s = request.toString(ListenActivity.this);
 				Log.d("ListenActivity", "clicked " + s);
 				if (request.getLocation() != null) {
-					String uri = String.format("geo:%f,%f", request
-							.getLocation().getLatitude(), request.getLocation()
-							.getLongitude());
+					String uri = String.format(Locale.US, "geo:%f,%f?q=%f,%f",
+							request.getLocation().getLatitude(), request
+									.getLocation().getLongitude(), request
+									.getLocation().getLatitude(), request
+									.getLocation().getLongitude());
 					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
 				}
 			}
@@ -156,14 +157,19 @@ public class ListenActivity extends ListActivity {
 						getResources().getColor(android.R.color.black));
 				String success = data.getLocation() == null ? getString(R.string.noLocation)
 						: getString(R.string.locationFound);
-				row.getText1().setText(data.getRequester());
+				String requester = data.getRequester();
 				String dateOfRequest = DateFormat.getDateFormat(
 						ListenActivity.this).format(new Date(data.getTime()));
 				String timeOfRequest = DateFormat.getTimeFormat(
 						ListenActivity.this).format(new Date(data.getTime()));
+				row.getText1().setText(
+						String.format(
+								getString(R.string.locationListEntryHeader),
+								dateOfRequest, timeOfRequest));
 				row.getText2().setText(
-						String.format(getString(R.string.locationListEntry),
-								dateOfRequest, timeOfRequest, success));
+						String.format(
+								getString(R.string.locationListEntryFooter),
+								requester, success));
 				return row;
 			}
 		};
