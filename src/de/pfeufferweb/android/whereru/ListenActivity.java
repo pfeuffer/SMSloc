@@ -166,10 +166,6 @@ public class ListenActivity extends ListActivity {
 					row = (TwoLineListItem) convertView;
 				}
 				LocationRequest request = requests.get(position);
-				row.getText1().setTextColor(
-						getResources().getColor(android.R.color.black));
-				row.getText2().setTextColor(
-						getResources().getColor(android.R.color.black));
 				String status = stringForStatus(request.getStatus());
 				String requester = request.getRequester();
 				String dateOfRequest = DateFormat.getDateFormat(
@@ -178,6 +174,11 @@ public class ListenActivity extends ListActivity {
 				String timeOfRequest = DateFormat.getTimeFormat(
 						ListenActivity.this)
 						.format(new Date(request.getTime()));
+				row.getText1().setTextColor(
+						getResources().getColor(android.R.color.black));
+				row.getText2().setTextColor(
+						getResources().getColor(
+								colorForStatus(request.getStatus())));
 				row.getText1().setText(
 						getString(R.string.locationListEntryHeader,
 								dateOfRequest, timeOfRequest));
@@ -199,6 +200,24 @@ public class ListenActivity extends ListActivity {
 					return getString(R.string.statusNoGps);
 				case ABORTED:
 					return getString(R.string.statusAborted);
+				default:
+					throw new IllegalArgumentException("unknown status: "
+							+ status);
+				}
+			}
+
+			private int colorForStatus(Status status) {
+				switch (status) {
+				case NO_LOCATION:
+					return R.color.noFix;
+				case SUCCESS:
+					return R.color.locationFound;
+				case RUNNING:
+					return R.color.running;
+				case NO_GPS:
+					return R.color.noGps;
+				case ABORTED:
+					return R.color.aborted;
 				default:
 					throw new IllegalArgumentException("unknown status: "
 							+ status);

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<color name="aborted">#993333</color>
+<color name="noGps">#ff0000</color>
+<color name="locationFound">#009900</color>
+<color name="noFix">#0000bb</color>
+<color name="running">#333333</color>
+</resources>
