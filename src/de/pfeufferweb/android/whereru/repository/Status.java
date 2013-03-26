@@ -2,7 +2,7 @@ package de.pfeufferweb.android.whereru.repository;
 
 public enum Status {
 
-	RUNNING(1), SUCCESS(2), NO_LOCATION(3);
+	RUNNING(1), SUCCESS(2), NO_LOCATION(3), ABORTED(4), NO_GPS(5);
 
 	private final int id;
 

@@ -51,6 +51,16 @@ public class LocationRequest {
 		this.location = null;
 	}
 
+	public void setAborted() {
+		this.status = Status.ABORTED;
+		this.location = null;
+	}
+
+	public void setNoGps() {
+		this.status = Status.NO_GPS;
+		this.location = null;
+	}
+
 	public String toString(Context context) {
 		return requester + " ("
 				+ DateFormat.getDateFormat(context).format(new Date(time))

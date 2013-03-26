@@ -33,24 +33,32 @@ public class RequestRepository {
 	}
 
 	public LocationRequest createRequest(String requester) {
-		ContentValues values = new ContentValues();
-		values.put(RequestSQLiteHelper.COLUMN_REQUESTER, requester);
-		values.put(RequestSQLiteHelper.COLUMN_TIME, System.currentTimeMillis());
-		values.put(RequestSQLiteHelper.COLUMN_LONGITUDE, (String) null);
-		values.put(RequestSQLiteHelper.COLUMN_LATITUDE, (String) null);
-		values.put(RequestSQLiteHelper.COLUMN_STATUS, Status.RUNNING.getId());
-		long insertId = database.insert(RequestSQLiteHelper.TABLE_REQUESTS,
-				null, values);
-		Cursor cursor = database.query(RequestSQLiteHelper.TABLE_REQUESTS,
-				allColumns, RequestSQLiteHelper.COLUMN_ID + " = " + insertId,
-				null, null, null, null);
-		cursor.moveToFirst();
-		LocationRequest newRequest = cursorToRequest(cursor);
-		cursor.close();
-		return newRequest;
+		open();
+		try {
+			ContentValues values = new ContentValues();
+			values.put(RequestSQLiteHelper.COLUMN_REQUESTER, requester);
+			values.put(RequestSQLiteHelper.COLUMN_TIME,
+					System.currentTimeMillis());
+			values.put(RequestSQLiteHelper.COLUMN_LONGITUDE, (String) null);
+			values.put(RequestSQLiteHelper.COLUMN_LATITUDE, (String) null);
+			values.put(RequestSQLiteHelper.COLUMN_STATUS,
+					Status.RUNNING.getId());
+			long insertId = database.insert(RequestSQLiteHelper.TABLE_REQUESTS,
+					null, values);
+			Cursor cursor = database.query(RequestSQLiteHelper.TABLE_REQUESTS,
+					allColumns, RequestSQLiteHelper.COLUMN_ID + " = "
+							+ insertId, null, null, null, null);
+			cursor.moveToFirst();
+			LocationRequest newRequest = cursorToRequest(cursor);
+			cursor.close();
+			return newRequest;
+		} finally {
+			close();
+		}
 	}
 
 	public void updateRequest(LocationRequest request) {
+		open();
 		ContentValues values = new ContentValues();
 		values.put(RequestSQLiteHelper.COLUMN_REQUESTER, request.getRequester());
 		values.put(RequestSQLiteHelper.COLUMN_TIME, request.getTime());
@@ -65,27 +73,34 @@ public class RequestRepository {
 		database.update(RequestSQLiteHelper.TABLE_REQUESTS, values,
 				RequestSQLiteHelper.COLUMN_ID + " = ?",
 				new String[] { Long.toString(request.getId()) });
-
+		close();
 	}
 
 	public List<LocationRequest> getAllRequests() {
-		List<LocationRequest> requests = new ArrayList<LocationRequest>();
+		open();
+		try {
+			List<LocationRequest> requests = new ArrayList<LocationRequest>();
 
-		Cursor cursor = database.query(RequestSQLiteHelper.TABLE_REQUESTS,
-				allColumns, null, null, null, null, null);
+			Cursor cursor = database.query(RequestSQLiteHelper.TABLE_REQUESTS,
+					allColumns, null, null, null, null, null);
 
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) {
-			LocationRequest request = cursorToRequest(cursor);
-			requests.add(request);
-			cursor.moveToNext();
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast()) {
+				LocationRequest request = cursorToRequest(cursor);
+				requests.add(request);
+				cursor.moveToNext();
+			}
+			cursor.close();
+			return requests;
+		} finally {
+			close();
 		}
-		cursor.close();
-		return requests;
 	}
 
 	public void deleteAllRequests() {
+		open();
 		database.delete(RequestSQLiteHelper.TABLE_REQUESTS, null, null);
+		close();
 	}
 
 	private LocationRequest cursorToRequest(Cursor cursor) {

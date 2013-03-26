@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.SmsManager;
 import android.util.Log;
 import de.pfeufferweb.android.whereru.repository.LocationRequest;
@@ -35,16 +34,8 @@ public class LocationSender {
 		String text = format(location);
 		Log.d("SendService", "text: " + text);
 		sendSMS(text, request.getRequester(), notificationId);
-		RequestRepository db = new RequestRepository(context);
-		db.open();
-		db.updateRequest(request);
-		db.close();
-		sendBroadcast();
-	}
-
-	private void sendBroadcast() {
-		Intent intent = new Intent(ListenActivity.BROADCAST_NEW_REQUEST);
-		LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+		new RequestRepository(context).updateRequest(request);
+		ListenActivityBroadcast.updateActivity(context);
 	}
 
 	private void sendSMS(String message, final String receiver,

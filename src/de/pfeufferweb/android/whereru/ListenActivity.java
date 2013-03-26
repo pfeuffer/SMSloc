@@ -8,7 +8,6 @@ import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -36,8 +35,6 @@ import de.pfeufferweb.android.whereru.repository.RequestRepository;
 import de.pfeufferweb.android.whereru.repository.Status;
 
 public class ListenActivity extends ListActivity {
-
-	static final String BROADCAST_NEW_REQUEST = "newRequest";
 
 	private RequestRepository datasource;
 
@@ -99,9 +96,7 @@ public class ListenActivity extends ListActivity {
 		});
 		registerForContextMenu(getListView());
 
-		LocalBroadcastManager.getInstance(this).registerReceiver(
-				newRequestReceiver,
-				new IntentFilter(ListenActivity.BROADCAST_NEW_REQUEST));
+		ListenActivityBroadcast.register(this, newRequestReceiver);
 
 		fillRequests();
 	}
@@ -147,10 +142,8 @@ public class ListenActivity extends ListActivity {
 	}
 
 	private void fillRequests() {
-		datasource.open();
-
 		final List<LocationRequest> requests = datasource.getAllRequests();
-		datasource.close();
+
 		if (requests.isEmpty()) {
 			noHistoryText.setVisibility(View.VISIBLE);
 			historyText.setVisibility(View.INVISIBLE);
@@ -236,9 +229,7 @@ public class ListenActivity extends ListActivity {
 	}
 
 	private void clearRequests() {
-		datasource.open();
 		this.datasource.deleteAllRequests();
-		datasource.close();
 		this.fillRequests();
 	}
 

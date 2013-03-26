@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import de.pfeufferweb.android.whereru.repository.LocationRequest;
+import de.pfeufferweb.android.whereru.repository.RequestRepository;
 
 public class TimedLocationSender extends Thread {
 
@@ -35,6 +36,11 @@ public class TimedLocationSender extends Thread {
 
 	@Override
 	public synchronized void run() {
+		if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			request.setNoGps();
+			saveRequest();
+			return;
+		}
 		startTime = System.currentTimeMillis();
 		UpdateThread updateThread = new UpdateThread();
 		updateThread.start();
@@ -52,7 +58,15 @@ public class TimedLocationSender extends Thread {
 		if (isActive()) {
 			new LocationSender(context, request, notificationId)
 					.send(lastLocation);
+		} else {
+			request.setAborted();
+			saveRequest();
 		}
+	}
+
+	private void saveRequest() {
+		new RequestRepository(context).updateRequest(request);
+		ListenActivityBroadcast.updateActivity(context);
 	}
 
 	private boolean isActive() {
