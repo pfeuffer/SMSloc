@@ -104,7 +104,6 @@ public class RequestRepository {
 	}
 
 	private LocationRequest cursorToRequest(Cursor cursor) {
-		SimpleLocation location;
 		LocationRequest request = new LocationRequest(cursor.getLong(0),
 				cursor.getString(1), cursor.getLong(2));
 		Status status = Status.getForId(cursor.getInt(5));

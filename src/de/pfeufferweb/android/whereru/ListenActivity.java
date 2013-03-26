@@ -170,7 +170,7 @@ public class ListenActivity extends ListActivity {
 						getResources().getColor(android.R.color.black));
 				row.getText2().setTextColor(
 						getResources().getColor(android.R.color.black));
-				String success = stringForStatus(request.getStatus());
+				String status = stringForStatus(request.getStatus());
 				String requester = request.getRequester();
 				String dateOfRequest = DateFormat.getDateFormat(
 						ListenActivity.this)
@@ -183,7 +183,7 @@ public class ListenActivity extends ListActivity {
 								dateOfRequest, timeOfRequest));
 				row.getText2().setText(
 						getString(R.string.locationListEntryFooter, requester,
-								success));
+								status));
 				return row;
 			}
 
