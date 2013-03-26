@@ -5,55 +5,87 @@
     tools:context=".ListenActivity" >
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/activateToggleButton"
-        android:layout_alignBottom="@+id/activateToggleButton"
-        android:layout_alignParentLeft="true"
-        android:text="@string/activateDescription" />
-
-    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textView2"
         android:text="@string/textIntro" />
-
-    <TextView
-        android:id="@+id/textViewTriggerOn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/helpButton"
-        android:layout_centerVertical="true"
-        android:text="@string/textTriggerOn" />
 
     <TextView
         android:id="@+id/textViewTriggerOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/helpButton"
         android:layout_centerVertical="true"
         android:text="@string/textTriggerOff" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textViewHistory"
+        android:layout_toRightOf="@+id/textView3" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:text="@string/activateDescription" />
 
     <ToggleButton
         android:id="@+id/activateToggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_marginLeft="32dp"
-        android:layout_toRightOf="@+id/textView2"
+        android:layout_alignRight="@+id/textViewTriggerOff"
+        android:layout_below="@+id/textView2"
+        android:layout_marginRight="72dp"
         android:text="@string/toggleButton" />
+
+    <TextView
+        android:id="@+id/textViewTriggerOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewTriggerOff"
+        android:layout_alignBottom="@+id/textViewTriggerOff"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/textView2"
+        android:text="@string/textTriggerOn" />
+
+    <TextView
+        android:id="@+id/textViewHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@android:id/list"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="87dp"
+        android:text="@string/textRequests" />
+
+    <TextView
+        android:id="@+id/textViewNoHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@android:id/list"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="87dp"
+        android:text="@string/textNoRequests" />
 
     <TextView
         android:id="@+id/textViewTrigger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/activateToggleButton"
         android:layout_below="@+id/textViewTriggerOn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="20dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
