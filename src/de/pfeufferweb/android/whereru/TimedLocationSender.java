@@ -16,6 +16,7 @@ public class TimedLocationSender extends Thread {
 
 	private final LocationManager locationManager;
 	private final Context context;
+	private final RequestHandler requestHandler;
 	private final ActiveLocationRequest request;
 
 	private long startTime;
@@ -23,6 +24,7 @@ public class TimedLocationSender extends Thread {
 
 	public TimedLocationSender(Context context, ActiveLocationRequest request) {
 		this.context = context;
+		this.requestHandler = new RequestHandler(context);
 		this.request = request;
 		this.locationManager = (LocationManager) context
 				.getSystemService(Context.LOCATION_SERVICE);
@@ -31,7 +33,7 @@ public class TimedLocationSender extends Thread {
 	@Override
 	public synchronized void run() {
 		if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			new RequestHandler(context).noGps(request);
+			requestHandler.noGps(request);
 			return;
 		}
 		startTime = System.currentTimeMillis();
@@ -50,16 +52,16 @@ public class TimedLocationSender extends Thread {
 		}
 		if (isActive()) {
 			if (lastLocation == null) {
-				new RequestHandler(context).noFix(request);
+				requestHandler.noFix(request);
 			} else {
-				new RequestHandler(context).success(request,
+				requestHandler.success(request,
 						new SimpleLocation(lastLocation.getLongitude(),
 								lastLocation.getLatitude()));
 			}
 			new LocationSender(context).send(lastLocation,
 					request.request.getRequester());
 		} else {
-			new RequestHandler(context).aborted(request);
+			requestHandler.aborted(request);
 		}
 	}
 
