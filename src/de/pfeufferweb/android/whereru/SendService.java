@@ -4,21 +4,13 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 public class SendService extends Service {
-	private final IBinder binder = new LocalBinder();
+	private final IBinder binder = new Binder();
 	private final RequestHandler requestHandler = new RequestHandler(this);
-
-	public class LocalBinder extends Binder {
-		SendService getService() {
-			return SendService.this;
-		}
-	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.d("SendService", "startet");
 		final String receiver = intent.getExtras().getString("receiver");
 		ActiveLocationRequest newRequestResult = requestHandler
 				.newRequest(receiver);

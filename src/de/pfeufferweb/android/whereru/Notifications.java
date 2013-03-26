@@ -8,53 +8,55 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 public class Notifications {
+
+	static int notificationCounter = 0;
+
 	private final Context context;
-	int notificationCounter = 0;
 
 	public Notifications(Context context) {
 		this.context = context;
 	}
 
-	public int newRequest(String origin) {
+	public int newRequest(String phoneNumber) {
 		int notificationId = ++notificationCounter;
-		Notification notification = buildNotification(context.getString(
-				R.string.notificationRequest, origin));
-		notify(notificationId, notification);
+		buildNotification(
+				context.getString(R.string.notificationRequest, phoneNumber),
+				notificationId);
 		return notificationId;
 	}
 
 	public void success(String phoneNumber, int notificationId) {
-		Notification notification = buildNotification(context.getString(
-				R.string.notificationSentSuccess, phoneNumber));
-		notify(notificationId, notification);
+		buildNotification(context.getString(R.string.notificationSentSuccess,
+				phoneNumber), notificationId);
 	}
 
 	public void noFix(String phoneNumber, int notificationId) {
-		Notification notification = buildNotification(context.getString(
-				R.string.notificationSentNoFix, phoneNumber));
-		notify(notificationId, notification);
+		buildNotification(
+				context.getString(R.string.notificationSentNoFix, phoneNumber),
+				notificationId);
 	}
 
 	public void noGps(String phoneNumber, int notificationId) {
-		Notification notification = buildNotification(context.getString(
-				R.string.notificationNoGps, phoneNumber));
-		notify(notificationId, notification);
+		buildNotification(
+				context.getString(R.string.notificationNoGps, phoneNumber),
+				notificationId);
 	}
 
 	public void aborted(String phoneNumber, int notificationId) {
-		Notification notification = buildNotification(context.getString(
-				R.string.notificationAborted, phoneNumber));
-		notify(notificationId, notification);
+		buildNotification(
+				context.getString(R.string.notificationAborted, phoneNumber),
+				notificationId);
 	}
 
-	private Notification buildNotification(String text) {
-		return new NotificationCompat.Builder(context)
+	private void buildNotification(String text, int notificationId) {
+		Notification notification = new NotificationCompat.Builder(context)
 				.setContentTitle(context.getString(R.string.notificationTitle))
 				.setContentText(text)
 				.setSmallIcon(R.drawable.ic_launcher)
 				.setContentIntent(
 						PendingIntent.getActivity(context, 0, new Intent(
 								context, ListenActivity.class), 0)).build();
+		notify(notificationId, notification);
 	}
 
 	private void notify(int notificationId, Notification notification) {

@@ -10,31 +10,37 @@ public class Settings {
 	private static final String TRIGGER = "trigger";
 	private static final String TIME = "time";
 
-	public static void setActive(Context context, boolean active) {
-		SharedPreferences prefs = getPrefs(context);
+	private final Context context;
+
+	public Settings(Context context) {
+		this.context = context;
+	}
+
+	public void setActive(boolean active) {
+		SharedPreferences prefs = getPrefs();
 		Editor editor = prefs.edit();
 		editor.putBoolean(ACTIVE, active);
 		editor.commit();
 	}
 
-	public static boolean getActive(Context context) {
-		SharedPreferences prefs = getPrefs(context);
+	public boolean getActive() {
+		SharedPreferences prefs = getPrefs();
 		return prefs.getBoolean(ACTIVE, false);
 	}
 
-	public static String getRequestText(Context context) {
-		SharedPreferences prefs = getPrefs(context);
+	public String getRequestText() {
+		SharedPreferences prefs = getPrefs();
 		return prefs.getString(TRIGGER,
 				context.getString(R.string.defaultTrigger));
 	}
 
-	public static int getSeconds(Context context) {
-		SharedPreferences prefs = getPrefs(context);
+	public int getSeconds() {
+		SharedPreferences prefs = getPrefs();
 		return Integer.parseInt(prefs.getString(TIME,
 				context.getString(R.string.defaultTime)));
 	}
 
-	private static SharedPreferences getPrefs(Context context) {
+	private SharedPreferences getPrefs() {
 		return PreferenceManager.getDefaultSharedPreferences(context);
 	}
 }

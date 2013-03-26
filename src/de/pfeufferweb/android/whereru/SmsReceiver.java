@@ -13,8 +13,9 @@ public class SmsReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		String requestText = Settings.getRequestText(context);
-		boolean active = Settings.getActive(context);
+		Settings settings = new Settings(context);
+		String requestText = settings.getRequestText();
+		boolean active = settings.getActive();
 
 		Log.d("SmsReceiver", "request text: " + requestText + "; active: "
 				+ active);

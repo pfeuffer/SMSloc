@@ -2,7 +2,6 @@ package de.pfeufferweb.android.whereru;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
@@ -36,13 +35,95 @@ import de.pfeufferweb.android.whereru.repository.Status;
 
 public class ListenActivity extends ListActivity {
 
-	private RequestRepository datasource;
+	private class RequestArrayAdapter extends ArrayAdapter<LocationRequest> {
 
-	private TextView triggerText;
-	private TextView triggerOnText;
-	private TextView triggerOffText;
-	private TextView historyText;
-	private TextView noHistoryText;
+		RequestArrayAdapter(Context context, List<LocationRequest> requests) {
+			super(context, android.R.layout.simple_list_item_2, requests);
+		}
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			TwoLineListItem row;
+			if (convertView == null) {
+				LayoutInflater inflater = (LayoutInflater) getApplicationContext()
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				row = (TwoLineListItem) inflater.inflate(
+						android.R.layout.simple_list_item_2, null);
+			} else {
+				row = (TwoLineListItem) convertView;
+			}
+			LocationRequest request = getItem(position);
+			formatListItem(row, request);
+			return row;
+		}
+
+		@SuppressWarnings("deprecation")
+		private void formatListItem(TwoLineListItem row, LocationRequest request) {
+			String status = stringForStatus(request.getStatus());
+			String requester = request.getRequester();
+			String dateOfRequest = DateFormat
+					.getDateFormat(ListenActivity.this).format(
+							new Date(request.getTime()));
+			String timeOfRequest = DateFormat
+					.getTimeFormat(ListenActivity.this).format(
+							new Date(request.getTime()));
+			row.getText1().setTextColor(
+					getResources().getColor(android.R.color.black));
+			row.getText2().setTextColor(
+					getResources()
+							.getColor(colorForStatus(request.getStatus())));
+			row.getText1().setText(
+					getString(R.string.locationListEntryHeader, dateOfRequest,
+							timeOfRequest));
+			row.getText2().setText(
+					getString(R.string.locationListEntryFooter, requester,
+							status));
+		}
+
+		private String stringForStatus(Status status) {
+			switch (status) {
+			case NO_LOCATION:
+				return getString(R.string.statusNoLocation);
+			case SUCCESS:
+				return getString(R.string.statusLocationFound);
+			case RUNNING:
+				return getString(R.string.statusRunning);
+			case NO_GPS:
+				return getString(R.string.statusNoGps);
+			case ABORTED:
+				return getString(R.string.statusAborted);
+			default:
+				throw new IllegalArgumentException("unknown status: " + status);
+			}
+		}
+
+		private int colorForStatus(Status status) {
+			switch (status) {
+			case NO_LOCATION:
+				return R.color.noFix;
+			case SUCCESS:
+				return R.color.locationFound;
+			case RUNNING:
+				return R.color.running;
+			case NO_GPS:
+				return R.color.noGps;
+			case ABORTED:
+				return R.color.aborted;
+			default:
+				throw new IllegalArgumentException("unknown status: " + status);
+			}
+		}
+	}
+
+	private RequestRepository repository;
+	private final Settings settings = new Settings(this);
+
+	private TextView triggerTextView;
+	private TextView triggerOnTextView;
+	private TextView triggerOffTextView;
+	private TextView historyTextView;
+	private TextView noHistoryTextView;
 	private ToggleButton toggleButton;
 
 	private final BroadcastReceiver newRequestReceiver = new BroadcastReceiver() {
@@ -56,25 +137,25 @@ public class ListenActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_listen);
-		triggerText = (TextView) findViewById(R.id.textViewTrigger);
+		triggerTextView = (TextView) findViewById(R.id.textViewTrigger);
 
-		triggerOnText = (TextView) findViewById(R.id.textViewTriggerOn);
-		triggerOffText = (TextView) findViewById(R.id.textViewTriggerOff);
+		triggerOnTextView = (TextView) findViewById(R.id.textViewTriggerOn);
+		triggerOffTextView = (TextView) findViewById(R.id.textViewTriggerOff);
 
-		historyText = (TextView) findViewById(R.id.textViewHistory);
-		noHistoryText = (TextView) findViewById(R.id.textViewNoHistory);
+		historyTextView = (TextView) findViewById(R.id.textViewHistory);
+		noHistoryTextView = (TextView) findViewById(R.id.textViewNoHistory);
 
 		toggleButton = (ToggleButton) findViewById(R.id.activateToggleButton);
 		toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				Settings.setActive(ListenActivity.this, isChecked);
+				settings.setActive(isChecked);
 				setTriggerActivated(isChecked);
 			}
 		});
 
-		datasource = new RequestRepository(this);
+		repository = new RequestRepository(this);
 
 		this.getListView().setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -82,16 +163,17 @@ public class ListenActivity extends ListActivity {
 					int position, long id) {
 				LocationRequest request = (LocationRequest) getListAdapter()
 						.getItem(position);
-				String s = request.toString(ListenActivity.this);
-				Log.d("ListenActivity", "clicked " + s);
 				if (request.getLocation() != null) {
-					String uri = String.format(Locale.US, "geo:%f,%f?q=%f,%f",
-							request.getLocation().getLatitude(), request
-									.getLocation().getLongitude(), request
-									.getLocation().getLatitude(), request
-									.getLocation().getLongitude());
-					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
+					openMaps(request);
 				}
+			}
+
+			private void openMaps(LocationRequest request) {
+				String uri = getString(R.string.geoUrl, request.getLocation()
+						.getLatitude(), request.getLocation().getLongitude(),
+						request.getLocation().getLatitude(), request
+								.getLocation().getLongitude());
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
 			}
 		});
 		registerForContextMenu(getListView());
@@ -105,125 +187,53 @@ public class ListenActivity extends ListActivity {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		if (v == getListView() && Settings.getActive(this)) {
-
+		if (v == getListView() && settings.getActive()) {
 			menu.add(getString(R.string.sendAgain)).setOnMenuItemClickListener(
 					new OnMenuItemClickListener() {
 						@Override
 						public boolean onMenuItemClick(MenuItem item) {
-							AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-									.getMenuInfo();
-							int index = info.position;
+							int index = ((AdapterContextMenuInfo) item
+									.getMenuInfo()).position;
 							LocationRequest request = (LocationRequest) getListAdapter()
 									.getItem(index);
-							Intent startService = new Intent(
-									ListenActivity.this, SendService.class);
-							startService.putExtra("receiver",
-									request.getRequester());
-							startService.putExtra("notificationId", -1);
-							startService.putExtra("seconds",
-									Settings.getSeconds(ListenActivity.this));
-							ListenActivity.this.startService(startService);
+							sendAgain(request);
 							return true;
 						}
 					});
 		}
 	}
 
+	private void sendAgain(LocationRequest request) {
+		Intent startService = new Intent(ListenActivity.this, SendService.class);
+		startService.putExtra("receiver", request.getRequester());
+		startService.putExtra("notificationId", -1);
+		startService.putExtra("seconds", settings.getSeconds());
+		ListenActivity.this.startService(startService);
+	}
+
 	@Override
 	protected void onStart() {
-		boolean active = Settings.getActive(this);
+		boolean active = settings.getActive();
 		toggleButton.setChecked(active);
-		triggerText.setText(Settings.getRequestText(this));
+		triggerTextView.setText(settings.getRequestText());
 		setTriggerActivated(active);
 		fillRequests();
-		Log.d("ListenActivity", "" + Settings.getSeconds(this));
+		Log.d("ListenActivity", "" + settings.getSeconds());
 		super.onStart();
 	}
 
 	private void fillRequests() {
-		final List<LocationRequest> requests = datasource.getAllRequests();
+		final List<LocationRequest> requests = repository.getAllRequests();
 
 		if (requests.isEmpty()) {
-			noHistoryText.setVisibility(View.VISIBLE);
-			historyText.setVisibility(View.INVISIBLE);
+			noHistoryTextView.setVisibility(View.VISIBLE);
+			historyTextView.setVisibility(View.INVISIBLE);
 		} else {
-			noHistoryText.setVisibility(View.INVISIBLE);
-			historyText.setVisibility(View.VISIBLE);
+			noHistoryTextView.setVisibility(View.INVISIBLE);
+			historyTextView.setVisibility(View.VISIBLE);
 		}
-		ArrayAdapter<LocationRequest> adapter = new ArrayAdapter<LocationRequest>(
-				this, android.R.layout.simple_list_item_2, requests) {
-			@SuppressWarnings("deprecation")
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-				TwoLineListItem row;
-				if (convertView == null) {
-					LayoutInflater inflater = (LayoutInflater) getApplicationContext()
-							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-					row = (TwoLineListItem) inflater.inflate(
-							android.R.layout.simple_list_item_2, null);
-				} else {
-					row = (TwoLineListItem) convertView;
-				}
-				LocationRequest request = requests.get(position);
-				String status = stringForStatus(request.getStatus());
-				String requester = request.getRequester();
-				String dateOfRequest = DateFormat.getDateFormat(
-						ListenActivity.this)
-						.format(new Date(request.getTime()));
-				String timeOfRequest = DateFormat.getTimeFormat(
-						ListenActivity.this)
-						.format(new Date(request.getTime()));
-				row.getText1().setTextColor(
-						getResources().getColor(android.R.color.black));
-				row.getText2().setTextColor(
-						getResources().getColor(
-								colorForStatus(request.getStatus())));
-				row.getText1().setText(
-						getString(R.string.locationListEntryHeader,
-								dateOfRequest, timeOfRequest));
-				row.getText2().setText(
-						getString(R.string.locationListEntryFooter, requester,
-								status));
-				return row;
-			}
-
-			private String stringForStatus(Status status) {
-				switch (status) {
-				case NO_LOCATION:
-					return getString(R.string.statusNoLocation);
-				case SUCCESS:
-					return getString(R.string.statusLocationFound);
-				case RUNNING:
-					return getString(R.string.statusRunning);
-				case NO_GPS:
-					return getString(R.string.statusNoGps);
-				case ABORTED:
-					return getString(R.string.statusAborted);
-				default:
-					throw new IllegalArgumentException("unknown status: "
-							+ status);
-				}
-			}
-
-			private int colorForStatus(Status status) {
-				switch (status) {
-				case NO_LOCATION:
-					return R.color.noFix;
-				case SUCCESS:
-					return R.color.locationFound;
-				case RUNNING:
-					return R.color.running;
-				case NO_GPS:
-					return R.color.noGps;
-				case ABORTED:
-					return R.color.aborted;
-				default:
-					throw new IllegalArgumentException("unknown status: "
-							+ status);
-				}
-			}
-		};
+		ArrayAdapter<LocationRequest> adapter = new RequestArrayAdapter(this,
+				requests);
 		setListAdapter(adapter);
 	}
 
@@ -250,7 +260,7 @@ public class ListenActivity extends ListActivity {
 	}
 
 	private void clearRequests() {
-		this.datasource.deleteAllRequests();
+		this.repository.deleteAllRequests();
 		this.fillRequests();
 	}
 
@@ -263,9 +273,9 @@ public class ListenActivity extends ListActivity {
 
 	private void setTriggerActivated(boolean activated) {
 		int visibility = activated ? View.VISIBLE : View.INVISIBLE;
-		triggerText.setVisibility(visibility);
-		triggerOnText.setVisibility(visibility);
-		triggerOffText
-				.setVisibility(!activated ? View.VISIBLE : View.INVISIBLE);
+		triggerTextView.setVisibility(visibility);
+		triggerOnTextView.setVisibility(visibility);
+		triggerOffTextView.setVisibility(!activated ? View.VISIBLE
+				: View.INVISIBLE);
 	}
 }
