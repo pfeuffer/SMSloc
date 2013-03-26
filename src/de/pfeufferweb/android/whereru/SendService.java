@@ -6,8 +6,14 @@ import android.os.Binder;
 import android.os.IBinder;
 
 public class SendService extends Service {
-	private final IBinder binder = new Binder();
+	private final IBinder binder = new LocalBinder();
 	private final RequestHandler requestHandler = new RequestHandler(this);
+
+	public class LocalBinder extends Binder {
+		SendService getService() {
+			return SendService.this;
+		}
+	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
