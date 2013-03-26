@@ -24,14 +24,6 @@ public class RequestRepository {
 		dbHelper = new RequestSQLiteHelper(context);
 	}
 
-	public void open() throws SQLException {
-		database = dbHelper.getWritableDatabase();
-	}
-
-	public void close() {
-		dbHelper.close();
-	}
-
 	public LocationRequest createRequest(String requester) {
 		open();
 		try {
@@ -101,6 +93,14 @@ public class RequestRepository {
 		open();
 		database.delete(RequestSQLiteHelper.TABLE_REQUESTS, null, null);
 		close();
+	}
+
+	void open() throws SQLException {
+		database = dbHelper.getWritableDatabase();
+	}
+
+	void close() {
+		dbHelper.close();
 	}
 
 	private LocationRequest cursorToRequest(Cursor cursor) {
