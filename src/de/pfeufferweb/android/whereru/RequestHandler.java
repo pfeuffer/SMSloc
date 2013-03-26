@@ -50,7 +50,7 @@ public class RequestHandler {
 	void noFix(ActiveLocationRequest request) {
 		request.request.setNoLocation();
 		updateRequest(request.request);
-		notifications.success(request.request.getRequester(),
+		notifications.noFix(request.request.getRequester(),
 				request.notificationId);
 	}
 
