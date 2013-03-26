@@ -41,6 +41,6 @@
     <string name="statusLocationFound">Position gesendet</string>
     <string name="statusNoLocation">fehlgeschlagen</string>
     <string name="statusRunning">noch nicht gesendet</string>
-    <string name="statusNoGps">gps disabled</string>
-    <string name="statusAborted">aborted</string>
+    <string name="statusNoGps">GPS deaktiviert</string>
+    <string name="statusAborted">Abgebrochen</string>
 </resources>
