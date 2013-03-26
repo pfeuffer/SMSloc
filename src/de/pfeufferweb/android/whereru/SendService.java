@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import de.pfeufferweb.android.whereru.repository.LocationRequest;
-import de.pfeufferweb.android.whereru.repository.RequestRepository;
 
 public class SendService extends Service {
 	private final IBinder binder = new LocalBinder();
+	private final RequestHandler requestHandler = new RequestHandler(this);
 
 	public class LocalBinder extends Binder {
 		SendService getService() {
@@ -21,16 +20,11 @@ public class SendService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d("SendService", "startet");
 		final String receiver = intent.getExtras().getString("receiver");
-		final int notificationId = intent.getExtras().getInt("notificationId");
-		final int seconds = intent.getExtras().getInt("seconds");
-		LocationRequest request = writeRequest(receiver);
-		getPosition(request, seconds, notificationId);
+		ActiveLocationRequest newRequestResult = requestHandler
+				.newRequest(receiver);
+		getPosition(newRequestResult);
 		ListenActivityBroadcast.updateActivity(this);
 		return START_NOT_STICKY;
-	}
-
-	private LocationRequest writeRequest(final String receiver) {
-		return new RequestRepository(this).createRequest(receiver);
 	}
 
 	@Override
@@ -38,8 +32,7 @@ public class SendService extends Service {
 		return binder;
 	}
 
-	private void getPosition(final LocationRequest request, final int seconds,
-			int notificationId) {
-		new TimedLocationSender(this, request, seconds, notificationId).start();
+	private void getPosition(final ActiveLocationRequest request) {
+		new TimedLocationSender(this, request).start();
 	}
 }

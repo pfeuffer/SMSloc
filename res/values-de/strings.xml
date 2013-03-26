@@ -16,7 +16,10 @@
     <string name="timeTitle">Zeit für GPS-Fix</string>
     <string name="timeDescription">Wie lange soll maximal versucht werden, bei einer Anfrage die GPS-Position zu ermitteln, bevor eine Antwort geschickt wird?</string>
     <string name="notificationTitle">Positionsanfrage erhalten</string>
-    <string name="notificationSent">Position an %1$s gesendet</string>
+    <string name="notificationSentSuccess">Position an %1$s gesendet</string>
+    <string name="notificationSentNoFix">Kein GPS-Fix für Anfrage von %1$s</string>
+    <string name="notificationNoGps">GPS nicht aktiviert für Anfrage von %1$s - Bitte aktivieren Sie GPS und senden eine neue Antwort über die Historie</string>
+    <string name="notificationAborted">Anfrage von %1$s abgebrochen</string>
     <string name="notificationRequest">Positionsanfrage von %1$s</string>
     <string name="locationResponse">http://maps.google.de/maps?q=%1$s,%2$s ; Genauigkeit: %3$s m ; Geschwindigket: %4$s m/s ; Alter: %5$s s</string>
     <string name="locationUnknown">Position konnte nicht ermittelt werden.</string>

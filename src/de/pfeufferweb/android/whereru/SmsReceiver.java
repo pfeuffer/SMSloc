@@ -8,16 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
 
 public class SmsReceiver extends BroadcastReceiver {
-	private final Notifications notifications = new Notifications();
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		String requestText = Settings.getRequestText(context);
 		boolean active = Settings.getActive(context);
-		int seconds = Settings.getSeconds(context);
 
 		Log.d("SmsReceiver", "request text: " + requestText + "; active: "
 				+ active);
@@ -34,15 +31,8 @@ public class SmsReceiver extends BroadcastReceiver {
 						.toUpperCase(Locale.getDefault())
 						.equals(requestText.trim().toUpperCase(
 								Locale.getDefault()))) {
-					int notificationId = notifications.setNotification(context,
-							origin);
-					Toast.makeText(context,
-							context.getString(R.string.toastRequest, origin),
-							Toast.LENGTH_LONG).show();
 					Intent startService = new Intent(context, SendService.class);
 					startService.putExtra("receiver", origin);
-					startService.putExtra("notificationId", notificationId);
-					startService.putExtra("seconds", seconds);
 					context.startService(startService);
 				}
 			}

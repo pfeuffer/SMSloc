@@ -15,7 +15,10 @@
     <string name="textNoRequests">No Requests so far&#8230;</string>
     <string name="activateDescription">Select this, to activate automatic responses:</string>
     <string name="notificationTitle">request for location</string>
-    <string name="notificationSent">location sent to %1$s</string>
+    <string name="notificationSentSuccess">location sent to %1$s</string>
+    <string name="notificationSentNoFix">no gps fix for %1$s</string>
+    <string name="notificationNoGps">no gps enabled for request from %1$s - please enable gps and send again from history</string>
+    <string name="notificationAborted">request for %1$s aborted</string>
     <string name="notificationRequest">location request from %1$s</string>
     <string name="locationResponse">http://maps.google.de/maps?q=%1$s,%2$s ; Accuracy: %3$s m ; Speed: %4$s m/s ; Age: %5$s s</string>
     <string name="locationUnknown">Unable to determine location.</string>
@@ -46,8 +49,8 @@
     <string name="preferences">Preferences</string>
     <string name="clearRequests">Clear history</string>
     <string name="sendAgain">send again</string>
-    <string name="locationListEntryHeader" formatted="false">"%s, %s</string>
-    <string name="locationListEntryFooter" formatted="false">"%s (%s)</string>
+    <string name="locationListEntryHeader">"%1$s, %2$s</string>
+    <string name="locationListEntryFooter">"%1$s (%2$s)</string>
     <string name="statusLocationFound">location sent</string>
     <string name="statusNoLocation">no location found</string>
     <string name="statusRunning">not sent yet</string>

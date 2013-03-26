@@ -179,13 +179,11 @@ public class ListenActivity extends ListActivity {
 						ListenActivity.this)
 						.format(new Date(request.getTime()));
 				row.getText1().setText(
-						String.format(
-								getString(R.string.locationListEntryHeader),
+						getString(R.string.locationListEntryHeader,
 								dateOfRequest, timeOfRequest));
 				row.getText2().setText(
-						String.format(
-								getString(R.string.locationListEntryFooter),
-								requester, success));
+						getString(R.string.locationListEntryFooter, requester,
+								success));
 				return row;
 			}
 

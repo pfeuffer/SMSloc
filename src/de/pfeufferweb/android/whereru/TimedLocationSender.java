@@ -7,8 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
-import de.pfeufferweb.android.whereru.repository.LocationRequest;
-import de.pfeufferweb.android.whereru.repository.RequestRepository;
+import de.pfeufferweb.android.whereru.repository.SimpleLocation;
 
 public class TimedLocationSender extends Thread {
 
@@ -17,19 +16,14 @@ public class TimedLocationSender extends Thread {
 
 	private final LocationManager locationManager;
 	private final Context context;
-	private final LocationRequest request;
-	private final int seconds;
-	private final int notificationId;
+	private final ActiveLocationRequest request;
 
 	private long startTime;
 	private Location lastLocation;
 
-	public TimedLocationSender(Context context, LocationRequest request,
-			int seconds, int notificationId) {
+	public TimedLocationSender(Context context, ActiveLocationRequest request) {
 		this.context = context;
 		this.request = request;
-		this.seconds = seconds;
-		this.notificationId = notificationId;
 		this.locationManager = (LocationManager) context
 				.getSystemService(Context.LOCATION_SERVICE);
 	}
@@ -37,8 +31,7 @@ public class TimedLocationSender extends Thread {
 	@Override
 	public synchronized void run() {
 		if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			request.setNoGps();
-			saveRequest();
+			new RequestHandler(context).noGps(request);
 			return;
 		}
 		startTime = System.currentTimeMillis();
@@ -56,17 +49,18 @@ public class TimedLocationSender extends Thread {
 			updateThread.close();
 		}
 		if (isActive()) {
-			new LocationSender(context, request, notificationId)
-					.send(lastLocation);
+			if (lastLocation == null) {
+				new RequestHandler(context).noFix(request);
+			} else {
+				new RequestHandler(context).success(request,
+						new SimpleLocation(lastLocation.getLongitude(),
+								lastLocation.getLatitude()));
+			}
+			new LocationSender(context).send(lastLocation,
+					request.request.getRequester());
 		} else {
-			request.setAborted();
-			saveRequest();
+			new RequestHandler(context).aborted(request);
 		}
-	}
-
-	private void saveRequest() {
-		new RequestRepository(context).updateRequest(request);
-		ListenActivityBroadcast.updateActivity(context);
 	}
 
 	private boolean isActive() {
@@ -74,7 +68,8 @@ public class TimedLocationSender extends Thread {
 	}
 
 	private boolean inTime() {
-		boolean inTime = (System.currentTimeMillis() - startTime) < seconds * 1000;
+		boolean inTime = (System.currentTimeMillis() - startTime) < Settings
+				.getSeconds(context) * 1000;
 		Log.d("TimedLocationProvider", "in time: " + inTime);
 		return inTime;
 	}

@@ -8,24 +8,46 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 public class Notifications {
+	private final Context context;
 	int notificationCounter = 0;
 
-	public int setNotification(Context context, String origin) {
+	public Notifications(Context context) {
+		this.context = context;
+	}
+
+	public int newRequest(String origin) {
 		int notificationId = ++notificationCounter;
-		Notification notification = buildNotification(context,
-				context.getString(R.string.notificationRequest, origin));
-		notify(context, notificationId, notification);
+		Notification notification = buildNotification(context.getString(
+				R.string.notificationRequest, origin));
+		notify(notificationId, notification);
 		return notificationId;
 	}
 
-	public void updateNotification(Context context, String phoneNumber,
-			String message, int notificationId) {
-		Notification notification = buildNotification(context,
-				context.getString(R.string.notificationSent, phoneNumber));
-		notify(context, notificationId, notification);
+	public void success(String phoneNumber, int notificationId) {
+		Notification notification = buildNotification(context.getString(
+				R.string.notificationSentSuccess, phoneNumber));
+		notify(notificationId, notification);
 	}
 
-	private Notification buildNotification(Context context, String text) {
+	public void noFix(String phoneNumber, int notificationId) {
+		Notification notification = buildNotification(context.getString(
+				R.string.notificationSentNoFix, phoneNumber));
+		notify(notificationId, notification);
+	}
+
+	public void noGps(String phoneNumber, int notificationId) {
+		Notification notification = buildNotification(context.getString(
+				R.string.notificationNoGps, phoneNumber));
+		notify(notificationId, notification);
+	}
+
+	public void aborted(String phoneNumber, int notificationId) {
+		Notification notification = buildNotification(context.getString(
+				R.string.notificationAborted, phoneNumber));
+		notify(notificationId, notification);
+	}
+
+	private Notification buildNotification(String text) {
 		return new NotificationCompat.Builder(context)
 				.setContentTitle(context.getString(R.string.notificationTitle))
 				.setContentText(text)
@@ -35,8 +57,7 @@ public class Notifications {
 								context, ListenActivity.class), 0)).build();
 	}
 
-	private void notify(Context context, int notificationId,
-			Notification notification) {
+	private void notify(int notificationId, Notification notification) {
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.notify(notificationId, notification);
