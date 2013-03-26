@@ -192,11 +192,15 @@ public class ListenActivity extends ListActivity {
 			private String stringForStatus(Status status) {
 				switch (status) {
 				case NO_LOCATION:
-					return getString(R.string.noLocation);
+					return getString(R.string.statusNoLocation);
 				case SUCCESS:
-					return getString(R.string.locationFound);
+					return getString(R.string.statusLocationFound);
 				case RUNNING:
-					return getString(R.string.running);
+					return getString(R.string.statusRunning);
+				case NO_GPS:
+					return getString(R.string.statusNoGps);
+				case ABORTED:
+					return getString(R.string.statusAborted);
 				default:
 					throw new IllegalArgumentException("unknown status: "
 							+ status);

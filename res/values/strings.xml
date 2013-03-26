@@ -48,7 +48,9 @@
     <string name="sendAgain">send again</string>
     <string name="locationListEntryHeader" formatted="false">"%s, %s</string>
     <string name="locationListEntryFooter" formatted="false">"%s (%s)</string>
-    <string name="locationFound">location sent</string>
-    <string name="noLocation">no location found</string>
-    <string name="running">not sent yet</string>
+    <string name="statusLocationFound">location sent</string>
+    <string name="statusNoLocation">no location found</string>
+    <string name="statusRunning">not sent yet</string>
+    <string name="statusNoGps">gps disabled</string>
+    <string name="statusAborted">aborted</string>
 </resources>

@@ -35,7 +35,9 @@
     <string name="preferences">Einstellungen</string>
     <string name="clearRequests">Historie löschen</string>
     <string name="sendAgain">Erneut senden</string>
-    <string name="locationFound">Position gesendet</string>
-    <string name="noLocation">fehlgeschlagen</string>
-    <string name="running">noch nicht gesendet</string>
+    <string name="statusLocationFound">Position gesendet</string>
+    <string name="statusNoLocation">fehlgeschlagen</string>
+    <string name="statusRunning">noch nicht gesendet</string>
+    <string name="statusNoGps">gps disabled</string>
+    <string name="statusAborted">aborted</string>
 </resources>
