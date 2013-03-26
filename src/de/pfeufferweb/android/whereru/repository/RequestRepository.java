@@ -108,11 +108,11 @@ public class RequestRepository {
 		LocationRequest request = new LocationRequest(cursor.getLong(0),
 				cursor.getString(1), cursor.getLong(2));
 		Status status = Status.getForId(cursor.getInt(5));
-		if (status == Status.NO_LOCATION) {
-			request.setNoLocation();
-		} else if (status == Status.SUCCESS) {
+		if (status == Status.SUCCESS) {
 			request.setSuccess(new SimpleLocation(cursor.getFloat(3), cursor
 					.getFloat(4)));
+		} else {
+			request.setStatus(status);
 		}
 		return request;
 	}

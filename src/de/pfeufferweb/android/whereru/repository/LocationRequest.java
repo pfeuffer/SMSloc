@@ -68,4 +68,8 @@ public class LocationRequest {
 				+ DateFormat.getTimeFormat(context).format(new Date(time))
 				+ ")";
 	}
+
+	void setStatus(Status status) {
+		this.status = status;
+	}
 }

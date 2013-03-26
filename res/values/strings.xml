@@ -53,7 +53,7 @@
     <string name="locationListEntryFooter">"%1$s (%2$s)</string>
     <string name="statusLocationFound">location sent</string>
     <string name="statusNoLocation">no location found</string>
-    <string name="statusRunning">not sent yet</string>
+    <string name="statusRunning">not sent, yet</string>
     <string name="statusNoGps">gps disabled</string>
     <string name="statusAborted">aborted</string>
 </resources>
