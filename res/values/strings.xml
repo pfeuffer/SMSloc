@@ -15,8 +15,8 @@
     <string name="textNoRequests">No Requests so far&#8230;</string>
     <string name="activateDescription">Select this, to activate automatic responses:</string>
     <string name="notificationTitle">request for location</string>
-    <string name="notificationSentSuccess">location sent to %1$s</string>
-    <string name="notificationSentNoFix">no gps fix for %1$s</string>
+    <string name="notificationSentSuccess">current location sent to %1$s</string>
+    <string name="notificationSentNoFix">no gps fix to send location to %1$s</string>
     <string name="notificationNoGps">no gps enabled for request from %1$s - please enable gps and send again from history</string>
     <string name="notificationAborted">request for %1$s aborted</string>
     <string name="notificationRequest">location request from %1$s</string>
