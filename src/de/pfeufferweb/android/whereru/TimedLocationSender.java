@@ -33,7 +33,7 @@ public class TimedLocationSender extends Thread {
 	@Override
 	public synchronized void run() {
 		if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			requestHandler.noGps(request);
+			tryNetworkLocationNoGps();
 			return;
 		}
 		startTime = System.currentTimeMillis();
@@ -52,16 +52,52 @@ public class TimedLocationSender extends Thread {
 		}
 		if (isActive()) {
 			if (lastLocation == null) {
-				requestHandler.noFix(request);
+				tryNetworkLocationNoFix();
 			} else {
-				requestHandler.success(request,
-						new SimpleLocation(lastLocation.getLongitude(),
-								lastLocation.getLatitude()));
+				sendSuccess();
 			}
-			new LocationSender(context).send(lastLocation,
-					request.request.getRequester());
 		} else {
 			requestHandler.aborted(request);
+		}
+	}
+
+	private void sendSuccess() {
+		requestHandler.success(
+				request,
+				new SimpleLocation(lastLocation.getLongitude(), lastLocation
+						.getLatitude()));
+		new LocationSender(context).send(lastLocation,
+				request.request.getRequester());
+	}
+
+	private void tryNetworkLocationNoFix() {
+		lastLocation = locationManager
+				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		if (lastLocation == null) {
+			requestHandler.noFix(request);
+			new LocationSender(context).sendNoLocation(request.request
+					.getRequester());
+		} else {
+			requestHandler.networkFix(request,
+					new SimpleLocation(lastLocation.getLongitude(),
+							lastLocation.getLatitude()));
+			new LocationSender(context).send(lastLocation,
+					request.request.getRequester());
+		}
+	}
+
+	private void tryNetworkLocationNoGps() {
+		lastLocation = locationManager
+				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		if (lastLocation == null) {
+			requestHandler.noGps(request);
+			new LocationSender(context).sendNoLocation(request.request
+					.getRequester());
+		} else {
+			requestHandler.networkFixNoGps(request, new SimpleLocation(
+					lastLocation.getLongitude(), lastLocation.getLatitude()));
+			new LocationSender(context).send(lastLocation,
+					request.request.getRequester());
 		}
 	}
 

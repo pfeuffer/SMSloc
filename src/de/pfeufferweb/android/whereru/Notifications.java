@@ -47,6 +47,12 @@ public class Notifications {
 		notify(notificationId, notification);
 	}
 
+	public void network(String phoneNumber, int notificationId) {
+		Notification notification = buildNotification(context.getString(
+				R.string.notificationSentNetwork, phoneNumber));
+		notify(notificationId, notification);
+	}
+
 	private Notification buildNotification(String text) {
 		return new NotificationCompat.Builder(context)
 				.setContentTitle(context.getString(R.string.notificationTitle))

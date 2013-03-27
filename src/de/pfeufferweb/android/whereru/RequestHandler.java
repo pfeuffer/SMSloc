@@ -58,4 +58,20 @@ public class RequestHandler {
 		new RequestRepository(context).updateRequest(request);
 		ListenActivityBroadcast.updateActivity(context);
 	}
+
+	public void networkFix(ActiveLocationRequest request,
+			SimpleLocation location) {
+		request.request.setNetwork(location);
+		updateRequest(request.request);
+		notifications.network(request.request.getRequester(),
+				request.notificationId);
+	}
+
+	public void networkFixNoGps(ActiveLocationRequest request,
+			SimpleLocation location) {
+		request.request.setNetworkNoGps(location);
+		updateRequest(request.request);
+		notifications.network(request.request.getRequester(),
+				request.notificationId);
+	}
 }

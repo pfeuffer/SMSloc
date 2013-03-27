@@ -61,6 +61,16 @@ public class LocationRequest {
 		this.location = null;
 	}
 
+	public void setNetwork(SimpleLocation location) {
+		this.status = Status.NETWORK;
+		this.location = location;
+	}
+
+	public void setNetworkNoGps(SimpleLocation location) {
+		this.status = Status.NETWORK_NO_GPS;
+		this.location = location;
+	}
+
 	public String toString(Context context) {
 		return requester + " ("
 				+ DateFormat.getDateFormat(context).format(new Date(time))
@@ -72,4 +82,5 @@ public class LocationRequest {
 	void setStatus(Status status) {
 		this.status = status;
 	}
+
 }

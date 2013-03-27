@@ -17,6 +17,10 @@ public class LocationSender {
 		sendSMS(format(location), phoneNumber);
 	}
 
+	public void sendNoLocation(String phoneNumber) {
+		sendSMS(context.getString(R.string.locationUnknown), phoneNumber);
+	}
+
 	private void sendSMS(String message, final String receiver) {
 		PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(
 				context, SmsReceiver.class), 0);
@@ -25,11 +29,9 @@ public class LocationSender {
 	}
 
 	private String format(Location location) {
-		return (location != null) ? context.getString(
-				R.string.locationResponse, location.getLatitude(),
-				location.getLongitude(), location.getAccuracy(),
-				location.getSpeed(), getAge(location)) : context
-				.getString(R.string.locationUnknown);
+		return context.getString(R.string.locationResponse,
+				location.getLatitude(), location.getLongitude(),
+				location.getAccuracy(), location.getSpeed(), getAge(location));
 	}
 
 	private long getAge(Location location) {
