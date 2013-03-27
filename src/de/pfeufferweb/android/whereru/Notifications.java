@@ -59,6 +59,7 @@ public class Notifications {
 				.setContentTitle(context.getString(R.string.notificationTitle))
 				.setContentText(text)
 				.setSmallIcon(R.drawable.ic_launcher)
+				.setAutoCancel(true)
 				.setContentIntent(
 						PendingIntent.getActivity(context, 0, new Intent(
 								context, ListenActivity.class), 0)).build();
