@@ -93,6 +93,10 @@ public class ListenActivity extends ListActivity {
 				return getString(R.string.statusNoGps);
 			case ABORTED:
 				return getString(R.string.statusAborted);
+			case NETWORK:
+				return getString(R.string.statusNetwork);
+			case NETWORK_NO_GPS:
+				return getString(R.string.statusNetworkNoGps);
 			default:
 				throw new IllegalArgumentException("unknown status: " + status);
 			}
@@ -110,6 +114,10 @@ public class ListenActivity extends ListActivity {
 				return R.color.noGps;
 			case ABORTED:
 				return R.color.aborted;
+			case NETWORK:
+				return R.color.locationFound;
+			case NETWORK_NO_GPS:
+				return R.color.noGps;
 			default:
 				throw new IllegalArgumentException("unknown status: " + status);
 			}
@@ -234,14 +242,6 @@ public class ListenActivity extends ListActivity {
 		}
 		ArrayAdapter<LocationRequest> adapter = new RequestArrayAdapter(this,
 				requests);
-				case NETWORK:
-					return getString(R.string.statusNetwork);
-				case NETWORK_NO_GPS:
-					return getString(R.string.statusNetworkNoGps);
-				case NETWORK:
-					return R.color.locationFound;
-				case NETWORK_NO_GPS:
-					return R.color.noGps;
 		setListAdapter(adapter);
 	}
 

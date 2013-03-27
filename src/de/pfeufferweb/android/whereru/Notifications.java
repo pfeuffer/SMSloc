@@ -49,9 +49,8 @@ public class Notifications {
 	}
 
 	public void network(String phoneNumber, int notificationId) {
-		Notification notification = buildNotification(context.getString(
-				R.string.notificationSentNetwork, phoneNumber));
-		notify(notificationId, notification);
+		buildNotification(context.getString(R.string.notificationSentNetwork,
+				phoneNumber), notificationId);
 	}
 
 	private void buildNotification(String text, int notificationId) {
