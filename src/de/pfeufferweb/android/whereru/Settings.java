@@ -9,6 +9,7 @@ public class Settings {
 	private static final String ACTIVE = "active";
 	private static final String TRIGGER = "trigger";
 	private static final String TIME = "time";
+	private static final String USE_NETWORK = "useNetwork";
 
 	private final Context context;
 
@@ -26,6 +27,11 @@ public class Settings {
 	public boolean getActive() {
 		SharedPreferences prefs = getPrefs();
 		return prefs.getBoolean(ACTIVE, false);
+	}
+
+	public boolean getUseNetwork() {
+		SharedPreferences prefs = getPrefs();
+		return prefs.getBoolean(USE_NETWORK, false);
 	}
 
 	public String getRequestText() {

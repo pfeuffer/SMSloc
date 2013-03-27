@@ -83,14 +83,17 @@ public class TimedLocationSender extends Thread {
 			requestHandler.networkFix(request,
 					new SimpleLocation(lastLocation.getLongitude(),
 							lastLocation.getLatitude()));
-			new LocationSender(context).send(lastLocation,
+			new LocationSender(context).sendNetwork(lastLocation,
 					request.request.getRequester());
 		}
 	}
 
 	private void tryNetworkLocationNoGps() {
-		lastLocation = locationManager
-				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		if (settings.getUseNetwork()) {
+			Log.d("TimedLocationSender", "looking for network location");
+			lastLocation = locationManager
+					.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		}
 		if (lastLocation == null) {
 			requestHandler.noGps(request);
 			new LocationSender(context).sendNoLocation(request.request
@@ -98,7 +101,7 @@ public class TimedLocationSender extends Thread {
 		} else {
 			requestHandler.networkFixNoGps(request, new SimpleLocation(
 					lastLocation.getLongitude(), lastLocation.getLatitude()));
-			new LocationSender(context).send(lastLocation,
+			new LocationSender(context).sendNetwork(lastLocation,
 					request.request.getRequester());
 		}
 	}
