@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.telephony.SmsManager;
 
-public class LocationSender {
+class LocationSender {
 	private final Context context;
 
 	public LocationSender(Context context) {
@@ -22,10 +22,10 @@ public class LocationSender {
 	}
 
 	private void sendSMS(String message, final String receiver) {
-		PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(
-				context, SmsReceiver.class), 0);
-		SmsManager sms = SmsManager.getDefault();
-		sms.sendTextMessage(receiver, null, message, pi, null);
+		PendingIntent intent = PendingIntent.getActivity(context, 0,
+				new Intent(context, SmsReceiver.class), 0);
+		SmsManager.getDefault().sendTextMessage(receiver, null, message,
+				intent, null);
 	}
 
 	private String format(Location location) {

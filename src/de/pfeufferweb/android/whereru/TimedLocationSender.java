@@ -16,6 +16,7 @@ public class TimedLocationSender extends Thread {
 
 	private final LocationManager locationManager;
 	private final Context context;
+	private final Settings settings;
 	private final RequestHandler requestHandler;
 	private final ActiveLocationRequest request;
 
@@ -25,6 +26,7 @@ public class TimedLocationSender extends Thread {
 	public TimedLocationSender(Context context, ActiveLocationRequest request) {
 		this.context = context;
 		this.requestHandler = new RequestHandler(context);
+		this.settings = new Settings(context);
 		this.request = request;
 		this.locationManager = (LocationManager) context
 				.getSystemService(Context.LOCATION_SERVICE);
@@ -102,12 +104,12 @@ public class TimedLocationSender extends Thread {
 	}
 
 	private boolean isActive() {
-		return Settings.getActive(context);
+		return settings.getActive();
 	}
 
 	private boolean inTime() {
-		boolean inTime = (System.currentTimeMillis() - startTime) < Settings
-				.getSeconds(context) * 1000;
+		boolean inTime = (System.currentTimeMillis() - startTime) < settings
+				.getSeconds() * 1000;
 		Log.d("TimedLocationProvider", "in time: " + inTime);
 		return inTime;
 	}

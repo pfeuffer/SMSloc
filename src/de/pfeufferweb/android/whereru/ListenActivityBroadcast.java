@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
-public class ListenActivityBroadcast {
+class ListenActivityBroadcast {
 	private static final String BROADCAST_NEW_REQUEST = "newRequest";
 
 	static void updateActivity(Context context) {
