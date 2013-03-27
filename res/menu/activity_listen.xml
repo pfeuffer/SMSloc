@@ -1,8 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item 
         android:id="@+id/preferences"
-        android:title="@string/preferences" />
+        android:title="@string/menuPreferences" />
     <item 
         android:id="@+id/clearRequests"
-        android:title="@string/clearRequests" />
+        android:title="@string/menuClearRequests" />
+    <item 
+        android:id="@+id/about"
+        android:title="@string/menuAbout" />
 </menu>

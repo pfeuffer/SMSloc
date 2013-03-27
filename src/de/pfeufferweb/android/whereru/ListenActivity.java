@@ -3,6 +3,7 @@ package de.pfeufferweb.android.whereru;
 import java.util.Date;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -283,6 +284,10 @@ public class ListenActivity extends ListActivity {
 		case R.id.clearRequests:
 			clearRequests();
 			fillRequests();
+			break;
+		case R.id.about:
+			new AlertDialog.Builder(this).setTitle(R.string.aboutTitle)
+					.setMessage(R.string.aboutText).show();
 			break;
 		default:
 			break;

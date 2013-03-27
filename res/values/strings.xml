@@ -50,8 +50,9 @@
         <item>3600</item>
     </string-array>
     <string name="defaultTime">600</string>
-    <string name="preferences">Preferences</string>
-    <string name="clearRequests">Clear history</string>
+    <string name="menuPreferences">Preferences</string>
+    <string name="menuClearRequests">Clear history</string>
+    <string name="menuAbout">About</string>
     <string name="contextSendAgain">send again</string>
     <string name="contextCall">call number</string>
     <string name="contextSendSms">send sms</string>
@@ -65,4 +66,9 @@
     <string name="statusAborted">aborted</string>
     <string name="statusNetwork">only network location</string>
     <string name="statusNetworkNoGps">gps disabled; sent network location</string>
+    <string name="aboutTitle">SMSloc</string>
+    <string name="aboutText">© 2013 by René Pfeuffer\n\n
+        Find sources in GitHub (https://github.com/pfeuffer/SMSloc)\n\n
+        This app comes <b>as it is without any warranty</b>!\n\n
+        For error reports, suggestions or questions write to <i>android@pfeuffer-web.de</i></string>
 </resources>

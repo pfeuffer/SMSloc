@@ -39,8 +39,9 @@
         <item>10 Minuten</item>
         <item>1 Stunde</item>
     </string-array>
-    <string name="preferences">Einstellungen</string>
-    <string name="clearRequests">Historie löschen</string>
+    <string name="menuPreferences">Einstellungen</string>
+    <string name="menuClearRequests">Historie löschen</string>
+    <string name="menuAbout">Über SMSloc</string>
     <string name="contextSendAgain">Erneut senden</string>
     <string name="contextCall">Anrufen</string>
     <string name="contextSendSms">SMS senden</string>
@@ -51,4 +52,9 @@
     <string name="statusAborted">Abgebrochen</string>
     <string name="statusNetwork">Netzwerkposition gesendet</string>
     <string name="statusNetworkNoGps">GPS deaktiviert; Netzwerkposition gesendet</string>
+    <string name="aboutTitle">SMSloc</string>
+    <string name="aboutText">© 2013 René Pfeuffer\n\n
+        Die Quellen befinden sich bei GitHub (https://github.com/pfeuffer/SMSloc)\n\n
+        Für diese App wird <b>keinerlei Garantie</b> übernommen!\n\n
+        Bei Fehlern, Wünschen oder Fragen wenden Sie sich an <i>android@pfeuffer-web.de</i></string>
 </resources>
