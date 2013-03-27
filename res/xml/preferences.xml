@@ -12,4 +12,9 @@
         android:entries="@array/times"
         android:entryValues="@array/timeValues"
         android:defaultValue="@string/defaultTime" />
+    <CheckBoxPreference
+        android:key="useNetwork"
+        android:title="@string/useNetworkTitle"
+        android:summary="@string/useNetworkDescription"
+        android:defaultValue="true" />
 </PreferenceScreen>

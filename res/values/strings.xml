@@ -16,16 +16,20 @@
     <string name="activateDescription">Select this, to activate automatic responses:</string>
     <string name="notificationTitle">request for location</string>
     <string name="notificationSentSuccess">current location sent to %1$s</string>
+    <string name="notificationSentNetwork">current network location sent to %1$s</string>
     <string name="notificationSentNoFix">no gps fix to send location to %1$s</string>
     <string name="notificationNoGps">no gps enabled for request from %1$s - please enable gps and send again from history</string>
     <string name="notificationAborted">request for %1$s aborted</string>
     <string name="notificationRequest">location request from %1$s</string>
     <string name="locationResponse">http://maps.google.de/maps?q=%1$s,%2$s ; Accuracy: %3$s m ; Speed: %4$s m/s ; Age: %5$s s</string>
+    <string name="locationResponseNetwork">Last network location: http://maps.google.de/maps?q=%1$s,%2$s ; Accuracy: %3$s m ; Speed: %4$s m/s ; Age: %5$s s</string>
     <string name="locationUnknown">Unable to determine location.</string>
     <string name="toastRequest">trying to send location to %1$s</string>
     <string name="toggleButton">active</string>
     <string name="timeTitle">Time to gps fix</string>
     <string name="timeDescription">How long should I try to determine the actual gps location before sending back a response?</string>
+    <string name="useNetworkTitle">Fall back to network location</string>
+    <string name="useNetworkDescription">Enable this, to respond with the last known network location when either gps is disabled or there was no gps fix in time.</string>
     <string name="helpUrl">http://www.pfeuffer-web.de/SMSloc/help-en</string>
     <string-array name="times">
         <item>15 seconds</item>
@@ -57,4 +61,6 @@
     <string name="statusRunning">not sent, yet</string>
     <string name="statusNoGps">gps disabled</string>
     <string name="statusAborted">aborted</string>
+    <string name="statusNetwork">only network location</string>
+    <string name="statusNetworkNoGps">gps disabled; sent network location</string>
 </resources>

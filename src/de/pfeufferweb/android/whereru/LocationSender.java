@@ -14,7 +14,15 @@ class LocationSender {
 	}
 
 	public void send(Location location, String phoneNumber) {
-		sendSMS(format(location), phoneNumber);
+		sendSMS(format(location, R.string.locationResponse), phoneNumber);
+	}
+
+	public void sendNetwork(Location location, String phoneNumber) {
+		sendSMS(format(location, R.string.locationResponseNetwork), phoneNumber);
+	}
+
+	public void sendNoLocation(String phoneNumber) {
+		sendSMS(context.getString(R.string.locationUnknown), phoneNumber);
 	}
 
 	private void sendSMS(String message, final String receiver) {
@@ -24,12 +32,10 @@ class LocationSender {
 				intent, null);
 	}
 
-	private String format(Location location) {
-		return (location != null) ? context.getString(
-				R.string.locationResponse, location.getLatitude(),
+	private String format(Location location, int text) {
+		return context.getString(text, location.getLatitude(),
 				location.getLongitude(), location.getAccuracy(),
-				location.getSpeed(), getAge(location)) : context
-				.getString(R.string.locationUnknown);
+				location.getSpeed(), getAge(location));
 	}
 
 	private long getAge(Location location) {

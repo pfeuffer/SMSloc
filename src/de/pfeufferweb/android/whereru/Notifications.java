@@ -48,8 +48,14 @@ public class Notifications {
 				notificationId);
 	}
 
+	public void network(String phoneNumber, int notificationId) {
+		buildNotification(context.getString(R.string.notificationSentNetwork,
+				phoneNumber), notificationId);
+	}
+
 	private void buildNotification(String text, int notificationId) {
 		Notification notification = new NotificationCompat.Builder(context)
+
 				.setContentTitle(context.getString(R.string.notificationTitle))
 				.setContentText(text)
 				.setSmallIcon(R.drawable.ic_launcher)
