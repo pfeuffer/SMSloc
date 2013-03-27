@@ -41,7 +41,9 @@
     </string-array>
     <string name="preferences">Einstellungen</string>
     <string name="clearRequests">Historie löschen</string>
-    <string name="sendAgain">Erneut senden</string>
+    <string name="contextSendAgain">Erneut senden</string>
+    <string name="contextCall">Anrufen</string>
+    <string name="contextSendSms">SMS senden</string>
     <string name="statusLocationFound">Position gesendet</string>
     <string name="statusNoLocation">fehlgeschlagen</string>
     <string name="statusRunning">noch nicht gesendet</string>

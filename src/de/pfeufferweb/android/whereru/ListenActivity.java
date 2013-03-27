@@ -196,15 +196,30 @@ public class ListenActivity extends ListActivity {
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		if (v == getListView() && settings.getActive()) {
-			menu.add(getString(R.string.sendAgain)).setOnMenuItemClickListener(
-					new OnMenuItemClickListener() {
+			menu.add(getString(R.string.contextSendAgain))
+					.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 						@Override
 						public boolean onMenuItemClick(MenuItem item) {
-							int index = ((AdapterContextMenuInfo) item
-									.getMenuInfo()).position;
-							LocationRequest request = (LocationRequest) getListAdapter()
-									.getItem(index);
+							LocationRequest request = getRequest(item);
 							sendAgain(request);
+							return true;
+						}
+					});
+			menu.add(getString(R.string.contextCall))
+					.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+						@Override
+						public boolean onMenuItemClick(MenuItem item) {
+							LocationRequest request = getRequest(item);
+							call(request);
+							return true;
+						}
+					});
+			menu.add(getString(R.string.contextSendSms))
+					.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+						@Override
+						public boolean onMenuItemClick(MenuItem item) {
+							LocationRequest request = getRequest(item);
+							sendSms(request);
 							return true;
 						}
 					});
@@ -217,6 +232,20 @@ public class ListenActivity extends ListActivity {
 		startService.putExtra("notificationId", -1);
 		startService.putExtra("seconds", settings.getSeconds());
 		ListenActivity.this.startService(startService);
+	}
+
+	private void call(LocationRequest request) {
+		String uri = "tel:" + request.getRequester();
+		Intent intent = new Intent(Intent.ACTION_DIAL);
+		intent.setData(Uri.parse(uri));
+		startActivity(intent);
+	}
+
+	private void sendSms(LocationRequest request) {
+		String uri = "sms:" + request.getRequester();
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse(uri));
+		startActivity(intent);
 	}
 
 	@Override
@@ -285,5 +314,12 @@ public class ListenActivity extends ListActivity {
 		triggerOnTextView.setVisibility(visibility);
 		triggerOffTextView.setVisibility(!activated ? View.VISIBLE
 				: View.INVISIBLE);
+	}
+
+	private LocationRequest getRequest(MenuItem item) {
+		int index = ((AdapterContextMenuInfo) item
+				.getMenuInfo()).position;
+		return (LocationRequest) getListAdapter()
+				.getItem(index);
 	}
 }

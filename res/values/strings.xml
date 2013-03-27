@@ -52,7 +52,9 @@
     <string name="defaultTime">600</string>
     <string name="preferences">Preferences</string>
     <string name="clearRequests">Clear history</string>
-    <string name="sendAgain">send again</string>
+    <string name="contextSendAgain">send again</string>
+    <string name="contextCall">call number</string>
+    <string name="contextSendSms">send sms</string>
     <string name="geoUrl">geo:%1$s,%2$s?q=%3$s%4$s</string>
     <string name="locationListEntryHeader">"%1$s, %2$s</string>
     <string name="locationListEntryFooter">"%1$s (%2$s)</string>
