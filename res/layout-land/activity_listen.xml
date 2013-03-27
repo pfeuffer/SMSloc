@@ -1,91 +1,67 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:baselineAligned="false"
     tools:context=".ListenActivity" >
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/textView2"
-        android:text="@string/textIntro" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textViewTriggerOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="@string/textTriggerOff" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textIntro" />
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textViewHistory"
-        android:layout_toRightOf="@+id/textView3" >
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activateDescription" />
 
-    </ListView>
+        <ToggleButton
+            android:id="@+id/activateToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/toggleButton" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
-        android:text="@string/activateDescription" />
+        <TextView
+            android:id="@+id/textViewTriggerOnOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textTriggerOn" />
 
-    <ToggleButton
-        android:id="@+id/activateToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textViewTriggerOff"
-        android:layout_below="@+id/textView2"
-        android:layout_marginRight="72dp"
-        android:text="@string/toggleButton" />
+        <TextView
+            android:id="@+id/textViewTrigger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/triggerbox"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewTriggerOn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewTriggerOff"
-        android:layout_alignBottom="@+id/textViewTriggerOff"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/textView2"
-        android:text="@string/textTriggerOn" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="@drawable/border"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textViewHistory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@android:id/list"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="87dp"
-        android:text="@string/textRequests" />
+        <TextView
+            android:id="@+id/textViewHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textRequests" />
 
-    <TextView
-        android:id="@+id/textViewNoHistory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@android:id/list"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="87dp"
-        android:text="@string/textNoRequests" />
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewTrigger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/activateToggleButton"
-        android:layout_below="@+id/textViewTriggerOn"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="20dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-</RelativeLayout>
+</LinearLayout>

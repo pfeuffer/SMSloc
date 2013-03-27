@@ -1,83 +1,53 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ListenActivity" >
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:text="@string/textIntro" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="10dp"
         android:text="@string/activateDescription" />
 
     <ToggleButton
         android:id="@+id/activateToggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
         android:text="@string/toggleButton" />
 
     <TextView
-        android:id="@+id/textViewTriggerOn"
+        android:id="@+id/textViewTriggerOnOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/activateToggleButton"
-        android:layout_marginTop="10dp"
         android:text="@string/textTriggerOn" />
-
-    <TextView
-        android:id="@+id/textViewTriggerOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/activateToggleButton"
-        android:layout_marginTop="10dp"
-        android:text="@string/textTriggerOff" />
 
     <TextView
         android:id="@+id/textViewTrigger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewTriggerOn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/triggerbox"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textViewHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewTrigger"
-        android:layout_marginTop="10dp"
         android:text="@string/textRequests" />
-
-    <TextView
-        android:id="@+id/textViewNoHistory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewTrigger"
-        android:layout_marginTop="10dp"
-        android:text="@string/textNoRequests" />
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewHistory" />
-</RelativeLayout>
+        android:background="@drawable/border" />
+
+</LinearLayout>

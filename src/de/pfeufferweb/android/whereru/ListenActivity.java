@@ -128,10 +128,8 @@ public class ListenActivity extends ListActivity {
 	private final Settings settings = new Settings(this);
 
 	private TextView triggerTextView;
-	private TextView triggerOnTextView;
-	private TextView triggerOffTextView;
+	private TextView triggerOnOffTextView;
 	private TextView historyTextView;
-	private TextView noHistoryTextView;
 	private ToggleButton toggleButton;
 
 	private final BroadcastReceiver newRequestReceiver = new BroadcastReceiver() {
@@ -147,11 +145,9 @@ public class ListenActivity extends ListActivity {
 		setContentView(R.layout.activity_listen);
 		triggerTextView = (TextView) findViewById(R.id.textViewTrigger);
 
-		triggerOnTextView = (TextView) findViewById(R.id.textViewTriggerOn);
-		triggerOffTextView = (TextView) findViewById(R.id.textViewTriggerOff);
+		triggerOnOffTextView = (TextView) findViewById(R.id.textViewTriggerOnOff);
 
 		historyTextView = (TextView) findViewById(R.id.textViewHistory);
-		noHistoryTextView = (TextView) findViewById(R.id.textViewNoHistory);
 
 		toggleButton = (ToggleButton) findViewById(R.id.activateToggleButton);
 		toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -263,11 +259,9 @@ public class ListenActivity extends ListActivity {
 		final List<LocationRequest> requests = repository.getAllRequests();
 
 		if (requests.isEmpty()) {
-			noHistoryTextView.setVisibility(View.VISIBLE);
-			historyTextView.setVisibility(View.INVISIBLE);
+			historyTextView.setText(getString(R.string.textNoRequests));
 		} else {
-			noHistoryTextView.setVisibility(View.INVISIBLE);
-			historyTextView.setVisibility(View.VISIBLE);
+			historyTextView.setText(getString(R.string.textRequests));
 		}
 		ArrayAdapter<LocationRequest> adapter = new RequestArrayAdapter(this,
 				requests);
@@ -309,17 +303,15 @@ public class ListenActivity extends ListActivity {
 	}
 
 	private void setTriggerActivated(boolean activated) {
-		int visibility = activated ? View.VISIBLE : View.INVISIBLE;
-		triggerTextView.setVisibility(visibility);
-		triggerOnTextView.setVisibility(visibility);
-		triggerOffTextView.setVisibility(!activated ? View.VISIBLE
-				: View.INVISIBLE);
+		triggerTextView
+				.setVisibility(activated ? View.VISIBLE : View.INVISIBLE);
+		triggerOnOffTextView
+				.setText(getString(activated ? R.string.textTriggerOn
+						: R.string.textTriggerOff));
 	}
 
 	private LocationRequest getRequest(MenuItem item) {
-		int index = ((AdapterContextMenuInfo) item
-				.getMenuInfo()).position;
-		return (LocationRequest) getListAdapter()
-				.getItem(index);
+		int index = ((AdapterContextMenuInfo) item.getMenuInfo()).position;
+		return (LocationRequest) getListAdapter().getItem(index);
 	}
 }
