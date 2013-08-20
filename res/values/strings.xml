@@ -30,6 +30,8 @@
     <string name="timeDescription">How long should I try to determine the actual gps location before sending back a response?</string>
     <string name="useNetworkTitle">Fall back to network location</string>
     <string name="useNetworkDescription">Enable this, to respond with the last known network location when either gps is disabled or there was no gps fix in time.</string>
+    <string name="googleMapsTitle">Newest Google Maps</string>
+    <string name="googleMapsDescription">Enable this, to be compatible with the latest Google Maps.</string>
     <string name="helpUrl">http://www.pfeuffer-web.de/SMSloc/help-en</string>
     <string-array name="times">
         <item>15 seconds</item>

@@ -10,6 +10,7 @@ public class Settings {
 	private static final String TRIGGER = "trigger";
 	private static final String TIME = "time";
 	private static final String USE_NETWORK = "useNetwork";
+	private static final String GOOGLE_MAPS = "googleMapsCompatible";
 
 	private final Context context;
 
@@ -46,7 +47,13 @@ public class Settings {
 				context.getString(R.string.defaultTime)));
 	}
 
+	public boolean getGoogleMaps() {
+		SharedPreferences prefs = getPrefs();
+		return prefs.getBoolean(GOOGLE_MAPS, true);
+	}
+
 	private SharedPreferences getPrefs() {
 		return PreferenceManager.getDefaultSharedPreferences(context);
 	}
+
 }

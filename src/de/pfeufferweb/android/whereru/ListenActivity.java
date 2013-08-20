@@ -174,11 +174,16 @@ public class ListenActivity extends ListActivity {
 			}
 
 			private void openMaps(LocationRequest request) {
-				String uri = getString(R.string.geoUrl, request.getLocation()
-						.getLatitude(), request.getLocation().getLongitude(),
-						request.getLocation().getLatitude(), request
-								.getLocation().getLongitude());
+				String uri = getString(R.string.geoUrl, (request.getLocation()
+						.getLatitude()),
+						(request.getLocation().getLongitude()), f(request
+								.getLocation().getLatitude()), f(request
+								.getLocation().getLongitude()));
 				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
+			}
+
+			private String f(double d) {
+				return new DegreeFormatter().format(d);
 			}
 		});
 		registerForContextMenu(getListView());

@@ -17,6 +17,8 @@
     <string name="timeDescription">Wie lange soll maximal versucht werden, bei einer Anfrage die GPS-Position zu ermitteln, bevor eine Antwort geschickt wird?</string>
     <string name="useNetworkTitle">Netzwerkposition als Fallback</string>
     <string name="useNetworkDescription">Aktivieren, um bei deaktiviertem GPS oder keiner GPS-Position die letzte Netzwerkposition zu schicken.</string>
+    <string name="googleMapsTitle">Neues Google Maps</string>
+    <string name="googleMapsDescription">Aktivieren, um zum neuen Google Maps kompatibel zu sein.</string>
     <string name="notificationTitle">Positionsanfrage erhalten</string>
     <string name="notificationSentSuccess">Aktuelle Position an %1$s gesendet</string>
     <string name="notificationSentNetwork">Ungefähre Netzwerkposition an %1$s gesendet</string>

@@ -8,9 +8,11 @@ import android.telephony.SmsManager;
 
 class LocationSender {
 	private final Context context;
+	private final Settings settings;
 
 	public LocationSender(Context context) {
 		this.context = context;
+		settings = new Settings(context);
 	}
 
 	public void send(Location location, String phoneNumber) {
@@ -33,9 +35,18 @@ class LocationSender {
 	}
 
 	private String format(Location location, int text) {
-		return context.getString(text, location.getLatitude(),
-				location.getLongitude(), location.getAccuracy(),
-				location.getSpeed(), getAge(location));
+		return context.getString(text,
+				formatDegreeIfWanted(location.getLatitude()),
+				formatDegreeIfWanted(location.getLongitude()),
+				location.getAccuracy(), location.getSpeed(), getAge(location));
+	}
+
+	private String formatDegreeIfWanted(double d) {
+		if (settings.getGoogleMaps()) {
+			return new DegreeFormatter().format(d);
+		} else {
+			return Double.toString(d);
+		}
 	}
 
 	private long getAge(Location location) {

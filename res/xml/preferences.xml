@@ -17,4 +17,9 @@
         android:title="@string/useNetworkTitle"
         android:summary="@string/useNetworkDescription"
         android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="googleMaps"
+        android:title="@string/googleMapsTitle"
+        android:summary="@string/googleMapsDescription"
+        android:defaultValue="true" />
 </PreferenceScreen>
